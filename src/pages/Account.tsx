@@ -28,24 +28,24 @@ export const AccountRoute = () => {
     <div className="w-full max-w-xl mx-auto p-4 space-y-8">
       <UserProfileHeader />
       <div className="lg:hidden w-full flex justify-center mb-4">
-        <Button onClick={() => open()}>Disconnect</Button>
+        <Button onClick={() => open()}>Desconectar</Button>
       </div>
       <div className="space-y-4">
-        <h2 className="text-lg font-medium text-foreground">Account</h2>
+        <h2 className="text-lg font-medium text-foreground">Conta</h2>
         <div className="space-y-3">
           <AccountSection
             icon={<UserIcon className="w-6 h-6" />}
-            title="Personal details"
+            title="Dados pessoais"
             onClick={() => setOpenModal(ModalType.PERSONAL_DETAILS)}
           />
           <AccountSection
             icon={<Landmark className="w-6 h-6" />}
-            title="Account details"
+            title="Detalhes da conta"
             onClick={() => setOpenModal(ModalType.ACCOUNT_DETAILS)}
           />
           <AccountSection
             icon={<Gauge className="w-6 h-6" />}
-            title="Limits"
+            title="Limites"
             onClick={() => setOpenModal(ModalType.LIMITS)}
           />
         </div>
@@ -53,32 +53,32 @@ export const AccountRoute = () => {
 
       {/* Security Section */}
       <div className="space-y-4">
-        <h2 className="text-lg font-medium text-foreground">Security</h2>
+        <h2 className="text-lg font-medium text-foreground">Segurança</h2>
         <div className="space-y-3">
           <AccountSection
             icon={<UserCog className="w-6 h-6" />}
-            title="Safe owners"
+            title="Proprietários do Safe"
             onClick={() => setOpenModal(ModalType.SAFE_OWNERS)}
           />
           <AccountSection
             icon={<Wallet className="w-6 h-6" />}
-            title="Sign-in wallets"
+            title="Carteiras de login"
             onClick={() => setOpenModal(ModalType.SIGN_IN_WALLETS)}
           />
         </div>
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-lg font-medium text-foreground">Support</h2>
+        <h2 className="text-lg font-medium text-foreground">Suporte</h2>
         <div className="space-y-3">
           <AccountSection
             icon={<LifeBuoyIcon className="w-6 h-6" />}
-            title="Help Center"
+            title="Central de Ajuda"
             onClick={() => window.open(HELP_CENTER_URL, "_blank")}
           />
           <AccountSection
             icon={<Scale className="w-6 h-6" />}
-            title="Legal, Terms and Policies"
+            title="Jurídico, Termos e Políticas"
             onClick={() => window.open(LEGAL_LINK, "_blank")}
           />
         </div>

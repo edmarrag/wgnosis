@@ -12,19 +12,19 @@ export const CardStatusOverlay = ({ status, showText = true, iconSize = 40 }: Ca
   const statusConfig: Record<CardStatusOverlayProps["status"], { icon: React.ReactNode; text: string }> = {
     frozen: {
       icon: <Snowflake size={iconSize} className={iconClassName} />,
-      text: "FROZEN",
+      text: "CONGELADO",
     },
     stolen: {
       icon: <AlertTriangle size={iconSize} className={iconClassName} />,
-      text: "STOLEN",
+      text: "ROUBADO",
     },
     lost: {
       icon: <AlertTriangle size={iconSize} className={iconClassName} />,
-      text: "LOST",
+      text: "PERDIDO",
     },
     void: {
       icon: <Ban size={iconSize} className={iconClassName} />,
-      text: "VOID",
+      text: "ANULADO",
     },
     other: {
       icon: <AlertTriangle size={iconSize} className={iconClassName} />,

@@ -150,13 +150,13 @@ export const DailyLimitEdit: React.FC<DailyLimitEditProps> = ({ initialLimit, cu
       {!isSignerConnected && !isDataLoading && (
         <StandardAlert
           variant="destructive"
-          description="You must be connected with an account that is a signer of the Gnosis Pay account"
+          description="Você deve estar conectado com uma conta que seja assinante da conta Gnosis Pay"
         />
       )}
 
       <div className="space-y-2">
         <label htmlFor="daily-limit" className="text-sm text-muted-foreground">
-          Daily limit
+          Limite diário
         </label>
         <div className="relative">
           <Input
@@ -174,22 +174,22 @@ export const DailyLimitEdit: React.FC<DailyLimitEditProps> = ({ initialLimit, cu
             className="absolute right-4 top-1/2 transform -translate-y-1/2 text-muted-foreground font-medium"
             onClick={onSetMax}
           >
-            Max
+            Máx
           </Button>
         </div>
       </div>
 
       <div className="text-sm text-muted-foreground">
-        Max limit: {currency?.symbol}
+        Limite máximo: {currency?.symbol}
         {MAX_DAILY_LIMIT.toLocaleString()}
       </div>
 
-      {error && <StandardAlert variant="destructive" title="Error" description={error} />}
+      {error && <StandardAlert variant="destructive" title="Erro" description={error} />}
       {signerError && <StandardAlert variant="destructive" description={signerError.message} />}
 
       <div className="flex gap-3">
         <Button variant="outline" className="flex-1" onClick={onCancel} disabled={isSubmitting}>
-          Cancel
+          Cancelar
         </Button>
         <Button
           className="flex-1 bg-button-bg hover:bg-button-bg-hover text-button-black font-medium"
@@ -197,7 +197,7 @@ export const DailyLimitEdit: React.FC<DailyLimitEditProps> = ({ initialLimit, cu
           disabled={isSubmitting || !!error || !isSignerConnected || !!signerError}
           loading={isSubmitting}
         >
-          {isSubmitting ? "Saving..." : "Save"}
+          {isSubmitting ? "Salvando..." : "Salvar"}
         </Button>
       </div>
     </div>

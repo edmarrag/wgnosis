@@ -22,7 +22,7 @@ export const SignInWalletsDeleteConfirmation = ({
 
   const handleDelete = useCallback(() => {
     if (!account.id) {
-      setError("Account ID is missing");
+      setError("ID da conta ausente");
       return;
     }
 
@@ -34,16 +34,16 @@ export const SignInWalletsDeleteConfirmation = ({
     })
       .then((response) => {
         if (response.error) {
-          setError(extractErrorMessage(response.error, "Failed to delete wallet address"));
+          setError(extractErrorMessage(response.error, "Falha ao excluir endereço de carteira"));
           return;
         }
 
-        toast.success("Sign-in address deleted successfully");
+        toast.success("Endereço de login excluído com sucesso");
         onSuccess();
       })
       .catch((err) => {
         console.error("Error deleting EOA account:", err);
-        setError("Failed to delete wallet address");
+        setError("Falha ao excluir endereço de carteira");
       })
       .finally(() => {
         setIsDeleting(false);
@@ -58,23 +58,23 @@ export const SignInWalletsDeleteConfirmation = ({
         </div>
 
         <div className="space-y-2">
-          <h3 className="text-lg font-semibold text-foreground">Delete wallet address</h3>
+          <h3 className="text-lg font-semibold text-foreground">Excluir endereço de carteira</h3>
           <p className="text-sm text-muted-foreground max-w-sm">
-            Are you sure you want to delete this wallet address? This action cannot be undone.
+            Tem certeza de que deseja excluir este endereço de carteira? Esta ação não pode ser desfeita.
           </p>
         </div>
 
         <div className="w-full p-3 bg-muted/50 rounded-lg">
-          <div className="text-xs text-muted-foreground mb-1">Address</div>
-          <div className="font-mono text-sm text-foreground break-all">{account.address || "N/A"}</div>
+          <div className="text-xs text-muted-foreground mb-1">Endereço</div>
+          <div className="font-mono text-sm text-foreground break-all">{account.address || "N/D"}</div>
         </div>
       </div>
 
-      {error && <StandardAlert variant="destructive" title="Error" description={error} />}
+      {error && <StandardAlert variant="destructive" title="Erro" description={error} />}
 
       <div className="flex gap-3">
         <Button variant="outline" className="flex-1" onClick={onCancel} disabled={isDeleting}>
-          Cancel
+          Cancelar
         </Button>
         <Button
           variant="destructive"
@@ -83,7 +83,7 @@ export const SignInWalletsDeleteConfirmation = ({
           disabled={isDeleting}
           loading={isDeleting}
         >
-          {isDeleting ? "Deleting..." : "Delete wallet"}
+          {isDeleting ? "Excluindo..." : "Excluir carteira"}
         </Button>
       </div>
     </div>

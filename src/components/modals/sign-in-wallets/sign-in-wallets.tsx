@@ -96,14 +96,14 @@ export const SignInWalletsModal = ({ open, onOpenChange }: SignInWalletsModalPro
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg">
         <DialogHeader>
-          <DialogTitle>Sign-in wallets</DialogTitle>
+          <DialogTitle>Carteiras de login</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">
           {error && step === SignInWalletsStep.None && (
             <StandardAlert
-              title="Failed to load sign-in wallets"
-              description="Please try again later"
+              title="Falha ao carregar carteiras de login"
+              description="Por favor, tente novamente mais tarde"
               variant="destructive"
             />
           )}

@@ -20,7 +20,7 @@ export const AccountDetailsModal = ({ open, onOpenChange }: AccountDetailsModalP
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg">
         <DialogHeader>
-          <DialogTitle>Account details</DialogTitle>
+          <DialogTitle>Detalhes da conta</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">

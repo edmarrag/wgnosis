@@ -96,14 +96,14 @@ export const SafeOwnersModal = ({ open, onOpenChange }: SafeOwnersModalProps) =>
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg">
         <DialogHeader>
-          <DialogTitle>Safe owners</DialogTitle>
+          <DialogTitle>Proprietários do Safe</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">
           {error && step === SafeOwnersStep.None && (
             <StandardAlert
-              title="Failed to load Safe owners"
-              description="Please try again later"
+              title="Falha ao carregar proprietários do Safe"
+              description="Por favor, tente novamente mais tarde"
               variant="destructive"
             />
           )}

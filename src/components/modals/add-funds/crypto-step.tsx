@@ -39,7 +39,7 @@ export const CryptoStep = ({ onBack }: CryptoStepProps) => {
         </Button>
         <div className="flex items-center gap-3">
           <p className="text-sm text-muted-foreground">
-            Send {currency?.tokenSymbol} directly to your Gnosis Pay Safe Account
+            Envie {currency?.tokenSymbol} diretamente para sua conta Safe da Gnosis Pay
           </p>
         </div>
       </div>
@@ -50,10 +50,11 @@ export const CryptoStep = ({ onBack }: CryptoStepProps) => {
         <div className="pt-4 border-t border-border">
           <div className="text-center space-y-4">
             <div className="text-sm font-medium text-muted-foreground">OR</div>
+            {/* Mantemos OR em inglês como separador curto e visual */}
 
             <div>
               <p className="text-sm text-muted-foreground mb-4">
-                Get {currency?.tokenSymbol} on Gnosis Chain through bridge services below
+                Obtenha {currency?.tokenSymbol} na Gnosis Chain através dos serviços de bridge abaixo
               </p>
               <a
                 href={ADD_FUNDS_CONSTANTS.GNOSIS_PAY_HELP_URL}
@@ -61,32 +62,31 @@ export const CryptoStep = ({ onBack }: CryptoStepProps) => {
                 rel="noopener noreferrer"
                 className="text-sm text-foreground underline hover:no-underline"
               >
-                See more options
+                Ver mais opções
               </a>
             </div>
 
             <div className="space-y-3">
               <Button onClick={handleJumperClick} className="w-full flex items-center gap-2">
                 <ExternalLink className="h-4 w-4" />
-                Get {currency?.tokenSymbol} with Jumper
+                Obter {currency?.tokenSymbol} com Jumper
               </Button>
               <Button onClick={handleDeBridgeClick} className="w-full flex items-center gap-2">
                 <ExternalLink className="h-4 w-4" />
-                Get {currency?.tokenSymbol} with deBridge
+                Obter {currency?.tokenSymbol} com deBridge
               </Button>
             </div>
             <div className="text-xs text-muted-foreground">
-              By proceeding, you acknowledge that the service is provided by third parties and that you are entering
-              into the{" "}
+              Ao prosseguir, você reconhece que o serviço é fornecido por terceiros e que está concordando com o{" "}
               <a
                 href={ADD_FUNDS_CONSTANTS.DEBRIDGE_LICENSE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-foreground underline hover:no-underline"
               >
-                deBridge SDK and API License Agreement
+                Acordo de Licença do deBridge SDK e API
               </a>{" "}
-              and applicable third-party terms. Please conduct your own research and use at your own risk.
+              e com os termos aplicáveis de terceiros. Faça sua própria pesquisa e use por sua conta e risco.
             </div>
           </div>
         </div>

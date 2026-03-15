@@ -28,7 +28,7 @@ export const DailyLimitView: React.FC<DailyLimitViewProps> = ({ dailyLimit, allo
   if (dailyLimit === null) {
     return (
       <div className="text-center py-4">
-        <div className="text-muted-foreground">No daily limit set</div>
+        <div className="text-muted-foreground">Nenhum limite diário definido</div>
       </div>
     );
   }
@@ -38,7 +38,7 @@ export const DailyLimitView: React.FC<DailyLimitViewProps> = ({ dailyLimit, allo
       {/* Daily limit */}
       <div className="space-y-4">
         <div>
-          <div className="text-sm text-muted-foreground mb-2">Daily limit</div>
+          <div className="text-sm text-muted-foreground mb-2">Limite diário</div>
           <div className="text-2xl font-semibold text-foreground">{formattedDailyLimit || "—"}</div>
         </div>
 
@@ -46,7 +46,7 @@ export const DailyLimitView: React.FC<DailyLimitViewProps> = ({ dailyLimit, allo
           <div className="space-y-3">
             <Progress value={progressPercentage} className="h-2" />
             <div className="flex justify-end">
-              <span className="text-sm text-muted-foreground">{formattedAllowance} remaining</span>
+              <span className="text-sm text-muted-foreground">{formattedAllowance} restante</span>
             </div>
           </div>
         )}
@@ -54,7 +54,7 @@ export const DailyLimitView: React.FC<DailyLimitViewProps> = ({ dailyLimit, allo
 
       {/* Change daily limit button */}
       <Button className="w-full bg-brand hover:bg-brand/90 text-button-black font-medium" onClick={onEditClick}>
-        Change daily limit
+        Alterar limite diário
       </Button>
       <div className="text-center text-sm">
         <a
@@ -63,7 +63,7 @@ export const DailyLimitView: React.FC<DailyLimitViewProps> = ({ dailyLimit, allo
           rel="noopener noreferrer"
           className="underline"
         >
-          See all fees & limits
+          Ver todas as taxas e limites
         </a>
       </div>
     </div>

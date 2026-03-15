@@ -49,7 +49,7 @@ export const SafeDeploymentRoute = () => {
         <div className="col-span-6 lg:col-start-2 lg:col-span-4 mx-4 lg:mx-0">
           <StandardAlert
             variant="destructive"
-            title="Error"
+            title="Erro"
             description={error}
             className="mt-4"
             data-testid="safe-deployment-error-alert"
@@ -72,7 +72,7 @@ export const SafeDeploymentRoute = () => {
             setStep(ScreenStep.DeploySafe);
           }}
           setError={setError}
-          title="Mobile phone verification"
+          title="Verificação de telefone celular"
         />
       )}
       {step === ScreenStep.DeploySafe && <DeploySafeStep setError={setError} />}

@@ -43,7 +43,7 @@ export const DailyLimitModal: React.FC<DailyLimitModalProps> = ({ open, onOpenCh
     getApiV1AccountsDailyLimit()
       .then((response) => {
         if (response.error) {
-          setError("Failed to fetch daily limit");
+          setError("Falha ao buscar limite diário");
           return;
         }
 
@@ -51,7 +51,7 @@ export const DailyLimitModal: React.FC<DailyLimitModalProps> = ({ open, onOpenCh
         setAllowance(response.data?.data?.dailyRemaining ?? null);
       })
       .catch((err) => {
-        setError("Failed to fetch daily limit");
+        setError("Falha ao buscar limite diário");
         console.error("Error fetching daily limit:", err);
       })
       .finally(() => {
@@ -80,14 +80,14 @@ export const DailyLimitModal: React.FC<DailyLimitModalProps> = ({ open, onOpenCh
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>Limits</DialogTitle>
+          <DialogTitle>Limites</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-6">
           {isLoading && <Skeleton className="h-32 w-full" />}
 
           {error && step === DailyLimitStep.None && (
-            <StandardAlert variant="destructive" title="Error" description={error} />
+            <StandardAlert variant="destructive" title="Erro" description={error} />
           )}
 
           {step === DailyLimitStep.Editing && (

@@ -8,8 +8,8 @@ import { jwtDecode } from "jwt-decode";
 import { type ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { SiweMessage } from "siwe";
 import { toast } from "sonner";
-import { useSignMessage, useAccount, useConnections } from "wagmi";
 import { getAddress } from "viem";
+import { getExtensionAddress, signLoginMessage } from "@/lib/extSigner";
 
 export const LOCALSTORAGE_JWT_KEY = "gp-ui.jwt";
 
@@ -36,16 +36,14 @@ const AuthContextProvider = ({ children }: AuthContextProps) => {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [isLocaStorageLoading, setIsLocaStorageLoading] = useState(true);
   const [contextKey, setContextKey] = useState(0);
-  const { address, chainId } = useAccount();
-  const { signMessageAsync } = useSignMessage();
-  const connections = useConnections();
+  const [extAddress, setExtAddress] = useState<string | undefined>(undefined);
   const renewalTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const renewalInProgressRef = useRef(false);
-  const previousAddressRef = useRef<string | undefined>(address);
+  const previousAddressRef = useRef<string | undefined>(extAddress);
   const jwtAddressKey = useMemo(() => {
-    if (!address) return "";
-    return `${LOCALSTORAGE_JWT_KEY}.${address}`;
-  }, [address]);
+    if (!extAddress) return "";
+    return `${LOCALSTORAGE_JWT_KEY}.${extAddress}`;
+  }, [extAddress]);
 
   useEffect(() => {
     if (!jwt) {
@@ -79,7 +77,7 @@ const AuthContextProvider = ({ children }: AuthContextProps) => {
 
   // Handle app refresh when address changes
   useEffect(() => {
-    const currentAddress = address;
+    const currentAddress = extAddress;
     const previousAddress = previousAddressRef.current;
 
     // Skip on initial mount (when both are the same)
@@ -103,13 +101,13 @@ const AuthContextProvider = ({ children }: AuthContextProps) => {
 
     // Update the ref for other cases
     previousAddressRef.current = currentAddress;
-  }, [address]);
+  }, [extAddress]);
 
   const isAuthenticated = useMemo(() => {
     const isExpired = isTokenExpired(jwt);
 
-    return !!jwt && !isExpired && !isAuthenticating && !!address && !!chainId && connections.length > 0;
-  }, [jwt, isAuthenticating, address, chainId, connections]);
+    return !!jwt && !isExpired && !isAuthenticating && !!extAddress;
+  }, [jwt, isAuthenticating, extAddress]);
 
   const showInitializingLoader = useMemo(() => {
     // Show loader while authenticating
@@ -152,18 +150,8 @@ const AuthContextProvider = ({ children }: AuthContextProps) => {
       return;
     }
 
-    if (!address || !chainId) {
-      console.info("No address or chainId");
-      return;
-    }
-
     if (!jwtAddressKey) {
       console.info("No jwtAddressKey");
-      return;
-    }
-
-    if (connections.length === 0) {
-      console.info("No connections - wallet not connected yet");
       return;
     }
 
@@ -171,6 +159,17 @@ const AuthContextProvider = ({ children }: AuthContextProps) => {
 
     try {
       setIsAuthenticating(true);
+      let currentAddress = extAddress;
+      if (!currentAddress) {
+        try {
+          currentAddress = await getExtensionAddress();
+          setExtAddress(currentAddress);
+        } catch (e) {
+          toast.error("Extensão não disponível ou carteira bloqueada");
+          setIsAuthenticating(false);
+          return;
+        }
+      }
       const { data, error } = await getApiV1AuthNonce();
 
       if (error) {
@@ -190,9 +189,9 @@ const AuthContextProvider = ({ children }: AuthContextProps) => {
       // Ensure address is properly checksummed for EIP-55 compliance
       let checksummedAddress: string;
       try {
-        checksummedAddress = getAddress(address);
+        checksummedAddress = getAddress(currentAddress!);
       } catch (error) {
-        console.error("Invalid address format:", address, error);
+        console.error("Invalid address format:", currentAddress, error);
         toast.error("Invalid wallet address format");
         setIsAuthenticating(false);
         return;
@@ -204,7 +203,7 @@ const AuthContextProvider = ({ children }: AuthContextProps) => {
         statement: "Sign in with Ethereum to the app.",
         uri: "https://app.gnosispay.com",
         version: "1",
-        chainId,
+        chainId: 100,
         nonce: data,
         issuedAt: new Date().toISOString(),
       });
@@ -213,9 +212,7 @@ const AuthContextProvider = ({ children }: AuthContextProps) => {
       let signature = "";
 
       try {
-        signature = await signMessageAsync({
-          message: preparedMessage,
-        });
+        signature = await signLoginMessage(preparedMessage);
       } catch (error) {
         console.error("Error signing message", error);
         setIsAuthenticating(false);
@@ -265,7 +262,7 @@ const AuthContextProvider = ({ children }: AuthContextProps) => {
     } finally {
       renewalInProgressRef.current = false;
     }
-  }, [address, chainId, signMessageAsync, jwtAddressKey, updateJwt, connections]);
+  }, [extAddress, jwtAddressKey, updateJwt]);
 
   // Set up automatic JWT renewal timeout, simpler approach than with an interceptor
   // see https://heyapi.dev/openapi-ts/clients/fetch#interceptors

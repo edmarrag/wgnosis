@@ -26,14 +26,14 @@ export const CardTransactions = () => {
 
   const loadMoreButtonText = useMemo(() => {
     if (isLoadingMoreCardTransactions && nextTransactionRangeTo) {
-      return `Loading last ${nextTransactionRangeTo} transactions...`;
+      return `Carregando últimas ${nextTransactionRangeTo} transações...`;
     }
 
     if (isLoadingMoreCardTransactions) {
-      return "Loading...";
+      return "Carregando...";
     }
 
-    return "Load More";
+    return "Carregar mais";
   }, [isLoadingMoreCardTransactions, nextTransactionRangeTo]);
 
   if (cardTransactionsLoading) {
@@ -50,7 +50,7 @@ export const CardTransactions = () => {
         <div className="flex flex-col items-center justify-center py-8">
           <InboxIcon className="w-10 h-10 mb-2 text-secondary" data-testid="empty-transactions-icon" />
           <div className="text-center text-secondary" data-testid="empty-transactions-message">
-            No card transactions to display
+            Sem transações de cartão para exibir
           </div>
         </div>
       )}

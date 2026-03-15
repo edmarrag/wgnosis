@@ -25,7 +25,7 @@ export const IbanTransactions = () => {
         <div className="flex flex-col items-center justify-center py-8">
           <InboxIcon className="w-10 h-10 mb-2 text-secondary" data-testid="empty-iban-transactions-icon" />
           <div className="text-center text-secondary" data-testid="empty-iban-transactions-message">
-            No IBAN transactions to display
+            Sem transações IBAN para exibir
           </div>
         </div>
       )}

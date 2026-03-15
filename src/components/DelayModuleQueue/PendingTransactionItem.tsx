@@ -28,8 +28,8 @@ export const PendingTransactionItem = ({ transaction }: PendingTransactionItemPr
   const handleCopyHash = useCallback(
     (hash: string) => {
       copyToClipboard(hash, {
-        successMessage: "Hash copied to clipboard",
-        errorMessage: "Failed to copy hash",
+        successMessage: "Hash copiado para a área de transferência",
+        errorMessage: "Falha ao copiar hash",
       });
     },
     [copyToClipboard],
@@ -74,13 +74,13 @@ export const PendingTransactionItem = ({ transaction }: PendingTransactionItemPr
     if (token && amount && recipient) {
       const formattedAmount = formatTokenAmount(amount, token);
       if (formattedAmount) {
-        return `Sending ${formattedAmount} to ${shortenAddress(recipient)}`;
+        return `Enviando ${formattedAmount} para ${shortenAddress(recipient)}`;
       }
     }
 
     // Fallback to token symbol if available
     if (storedTransaction.tokenSymbol && amount && recipient) {
-      return `Sending ${formatUnits(BigInt(amount), storedTransaction.tokenDecimals ?? 0)} ${storedTransaction.tokenSymbol} to ${shortenAddress(recipient)}`;
+      return `Enviando ${formatUnits(BigInt(amount), storedTransaction.tokenDecimals ?? 0)} ${storedTransaction.tokenSymbol} para ${shortenAddress(recipient)}`;
     }
 
     return null;
@@ -152,9 +152,9 @@ export const PendingTransactionItem = ({ transaction }: PendingTransactionItemPr
 
       {/* Transaction Hash */}
       <div className="flex items-center justify-between text-sm">
-        <span className="text-muted-foreground">Transaction Hash</span>
+        <span className="text-muted-foreground">Hash da transação</span>
         <span className="font-mono font-medium text-foreground">
-          {transaction.hash ? shortenAddress(transaction.hash) : "N/A"}
+          {transaction.hash ? shortenAddress(transaction.hash) : "N/D"}
           <Button
             variant="outline"
             size="sm"
@@ -168,7 +168,7 @@ export const PendingTransactionItem = ({ transaction }: PendingTransactionItemPr
 
       {/* Creation Date */}
       <div className="flex items-center justify-between text-sm">
-        <span className="text-muted-foreground">Created</span>
+        <span className="text-muted-foreground">Criado</span>
         <span className="font-medium text-foreground">{creationDate}</span>
       </div>
 
@@ -184,7 +184,7 @@ export const PendingTransactionItem = ({ transaction }: PendingTransactionItemPr
           )}
           <div className="flex flex-col">
             <span className="text-sm font-medium text-foreground">
-              {transaction.isExpired ? "Expired" : transaction.isCooledDown ? "Ready" : "Cooling Down"}
+              {transaction.isExpired ? "Expirado" : transaction.isCooledDown ? "Pronto" : "Em resfriamento"}
             </span>
             {!transaction.isCooledDown && !transaction.isExpired && timeRemaining > 0 && (
               <span className="text-xs text-muted-foreground font-mono">{formatCountdown(timeRemaining)}</span>
@@ -201,7 +201,7 @@ export const PendingTransactionItem = ({ transaction }: PendingTransactionItemPr
             loading={isExecuting}
             className="shrink-0"
           >
-            Execute
+            Executar
           </Button>
         )}
       </div>

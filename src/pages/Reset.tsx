@@ -26,7 +26,7 @@ export const ResetRoute = () => {
     deleteApiV1SafeReset()
       .then(({ error: resetError }) => {
         if (resetError) {
-          setError(extractErrorMessage(resetError, "Failed to reset Safe account"));
+          setError(extractErrorMessage(resetError, "Falha ao resetar a conta Safe"));
           setIsProcessing(false);
           return;
         }
@@ -36,7 +36,7 @@ export const ResetRoute = () => {
         refreshUser();
       })
       .catch((err) => {
-        setError(extractErrorMessage(err, "Failed to reset Safe account"));
+        setError(extractErrorMessage(err, "Falha ao resetar a conta Safe"));
         setIsProcessing(false);
       });
   }, [refreshUser]);
@@ -47,7 +47,7 @@ export const ResetRoute = () => {
         <div className="col-span-6 lg:col-start-2 lg:col-span-4 mx-4 lg:mx-0">
           <StandardAlert
             variant="destructive"
-            title="Error"
+            title="Erro"
             description={error}
             className="mt-4"
             data-testid="reset-error-alert"
@@ -61,17 +61,16 @@ export const ResetRoute = () => {
               <AlertTriangle className="w-16 h-16 text-warning" data-testid="reset-warning-icon" />
             </div>
             <div className="space-y-4 text-center">
-              <h2 className="text-lg font-semibold text-foreground">Reset Safe Account</h2>
+              <h2 className="text-lg font-semibold text-foreground">Resetar conta Safe</h2>
               <div className="space-y-2">
                 <p className="text-sm text-muted-foreground">
-                  This action will permanently delete your Safe account. This operation is <strong>irreversible</strong>
-                  .
+                  Esta ação excluirá permanentemente sua conta Safe. Esta operação é <strong>irreversível</strong>.
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Transfer any remaining funds out of your Safe account before proceeding.
+                  Transfira quaisquer fundos remanescentes da sua conta Safe antes de continuar.
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Please make sure you are certain about this action before proceeding.
+                  Certifique-se de que está certo desta ação antes de prosseguir.
                 </p>
               </div>
             </div>
@@ -83,7 +82,7 @@ export const ResetRoute = () => {
                 disabled={isProcessing || !!error}
                 data-testid="reset-confirm-button"
               >
-                Reset Safe Account
+                Resetar conta Safe
               </Button>
             </div>
           </div>
@@ -94,11 +93,11 @@ export const ResetRoute = () => {
           <div className="flex flex-col items-center justify-center h-full space-y-4 mt-4">
             <CheckCircle2 className="w-16 h-16 text-success" data-testid="reset-success-icon" />
             <div className="space-y-2 text-center">
-              <h3 className="text-lg font-semibold text-foreground">Safe Account Reset Successfully</h3>
+              <h3 className="text-lg font-semibold text-foreground">Conta Safe redefinida com sucesso</h3>
               <p className="text-sm text-muted-foreground" data-testid="reset-success-message">
-                Your Safe account has been permanently deleted. You can now create a new Safe account if needed.
+                Sua conta Safe foi excluída permanentemente. Você pode criar uma nova conta Safe, se necessário.
               </p>
-              <Button onClick={() => navigate("/")}>Go to Home</Button>
+              <Button onClick={() => navigate("/")}>Ir para a página inicial</Button>
             </div>
           </div>
         </div>

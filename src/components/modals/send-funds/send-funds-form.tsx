@@ -41,7 +41,7 @@ export const SendFundsForm = ({ onNext }: SendFundsFormProps) => {
     setToAddress(value);
 
     if (value && !isAddress(value)) {
-      setAddressError("Invalid address");
+      setAddressError("Endereço inválido");
     }
   }, []);
 
@@ -76,19 +76,19 @@ export const SendFundsForm = ({ onNext }: SendFundsFormProps) => {
       {!isSignerConnected && !isDataLoading && (
         <StandardAlert
           variant="destructive"
-          description="You must be connected with an account that is a signer of the Gnosis Pay account"
+          description="Você deve estar conectado com uma conta que seja assinante da conta Gnosis Pay"
         />
       )}
 
       {!isQueueNotEmpty && (
         <StandardAlert
           variant="warning"
-          description="Please ensure you enter a Gnosis Chain address. You are solely responsible for the accuracy of the address and the safety of your funds."
+          description="Certifique-se de inserir um endereço da Gnosis Chain. Você é o único responsável pela precisão do endereço e pela segurança de seus fundos."
         />
       )}
 
       <div className="space-y-2">
-        <Label htmlFor="to-address">To</Label>
+        <Label htmlFor="to-address">Para</Label>
         <AddressInput
           toAddress={toAddress}
           onChange={handleAddressChange}
@@ -101,7 +101,7 @@ export const SendFundsForm = ({ onNext }: SendFundsFormProps) => {
         <div className="flex items-center justify-end">
           <div className="flex items-center gap-2">
             <Label htmlFor="custom-token-switch" className="text-sm text-muted-foreground">
-              Custom token
+              Token personalizado
             </Label>
             <Switch
               id="custom-token-switch"
@@ -133,7 +133,7 @@ export const SendFundsForm = ({ onNext }: SendFundsFormProps) => {
         className="w-full"
         data-testid="send-funds-next-button"
       >
-        Next
+        Avançar
       </Button>
     </div>
   );

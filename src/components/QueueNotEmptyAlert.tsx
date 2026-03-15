@@ -4,7 +4,7 @@ export const QueueNotEmptyAlert = () => {
   return (
     <StandardAlert
       variant="destructive"
-      description="Another transaction is already in the queue. Please wait for it to complete before submitting another one."
+      description="Outra transação já está na fila. Aguarde sua conclusão antes de enviar outra."
     />
   );
 };

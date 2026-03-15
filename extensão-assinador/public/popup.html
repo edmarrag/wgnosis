@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cripto Signer</title>
+  <style>
+    :root {
+      --bg-color: #0f111a;
+      --card-bg: #1a1d2d;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0a0;
+      --accent-color: #3b82f6;
+      --accent-hover: #2563eb;
+      --error-color: #ef4444;
+      --success-color: #10b981;
+      --border-color: #2d3748;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      height: auto;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .container {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      width: 320px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+      position: relative;
+    }
+
+    .settings-btn {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: transparent;
+      color: var(--text-secondary);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .settings-btn:hover {
+      background-color: var(--border-color);
+    }
+
+    .settings-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    .logo {
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--accent-color);
+    }
+
+    .status-badge {
+      font-size: 9px;
+      padding: 4px 8px;
+      border-radius: 12px;
+      background-color: var(--border-color);
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+
+    .status-badge.ready {
+      background-color: rgba(16, 185, 129, 0.2);
+      color: var(--success-color);
+    }
+
+    .status-badge.locked {
+      background-color: rgba(239, 68, 68, 0.2);
+      color: var(--error-color);
+    }
+
+    .view {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .view.active {
+      display: flex;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin: 0 0 16px 0;
+      font-weight: 600;
+    }
+
+    p {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input, textarea {
+      width: 100%;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      color: var(--text-primary);
+      font-family: inherit;
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--accent-color);
+    }
+
+    textarea {
+      resize: none;
+      height: 100px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      background-color: var(--accent-color);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-top: auto;
+    }
+
+    .btn:hover {
+      background-color: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      border: 1px solid var(--border-color);
+      margin-top: 12px;
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--border-color);
+    }
+
+    .tx-details {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
+      font-size: 12px;
+    }
+
+    .site-access {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border-color);
+    }
+
+    .site-access-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .site-access-title span {
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .pill {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background-color: var(--border-color);
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+
+    .pill.enabled {
+      background-color: rgba(16, 185, 129, 0.2);
+      color: var(--success-color);
+    }
+
+    .site-host {
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      word-break: break-all;
+      margin-bottom: 10px;
+    }
+
+    .site-form {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .site-form input {
+      flex: 1;
+    }
+
+    .site-form .btn {
+      width: auto;
+      margin-top: 0;
+      padding: 10px 14px;
+      white-space: nowrap;
+    }
+
+    .tx-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .tx-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .tx-label {
+      color: var(--text-secondary);
+    }
+
+    .tx-value {
+      font-family: 'Courier New', monospace;
+      text-align: right;
+      word-break: break-all;
+      max-width: 65%;
+    }
+
+    .error-msg {
+      color: var(--error-color);
+      font-size: 12px;
+      margin-top: 8px;
+      min-height: 16px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="status-badge" id="statusBadge">Checking...</div>
+      <button class="settings-btn" id="settingsBtn" type="button" aria-label="Configurações">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.2 7.2 0 0 0-1.63-.94l-.36-2.54A.5.5 0 0 0 13.9 1h-3.8a.5.5 0 0 0-.49.42l-.36 2.54c-.58.22-1.12.52-1.63.94l-2.39-.96a.5.5 0 0 0-.6.22L2.71 7.48a.5.5 0 0 0 .12.64l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94L2.83 14.5a.5.5 0 0 0-.12.64l1.92 3.32c.13.22.39.3.6.22l2.39-.96c.5.41 1.05.73 1.63.94l.36 2.54c.04.24.25.42.49.42h3.8c.24 0 .45-.18.49-.42l.36-2.54c.58-.22 1.12-.52 1.63-.94l2.39.96c.22.08.47 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.56ZM12 15.5A3.5 3.5 0 1 1 12 8a3.5 3.5 0 0 1 0 7.5Z"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="site-access" id="siteAccessCard">
+      <div class="site-access-title">
+        <span>Ativar Site</span>
+        <span class="pill" id="siteAccessPill">INATIVO</span>
+      </div>
+
+      <div id="siteForm">
+        <label for="manualSiteInput">URL ou domínio</label>
+        <div class="site-form">
+          <input id="manualSiteInput" placeholder="https://app.seudominio.com ou seudominio.com" autocomplete="off" />
+          <button class="btn" id="btnManualEnable" type="button">Ativar</button>
+        </div>
+        <div class="error-msg" id="manualSiteError"></div>
+      </div>
+
+      <div id="siteEnabledInfo" style="display:none;">
+        <div class="site-host" id="enabledSiteHost">—</div>
+      </div>
+    </div>
+
+    <!-- View: Loading -->
+    <div id="view-loading" class="view active">
+        <p>Carregando...</p>
+    </div>
+
+    <!-- View: Setup -->
+    <div id="view-setup" class="view">
+      <h2>Configuração Inicial</h2>
+      <p>Importe sua frase semente (12 palavras) para começar. Ela será criptografada localmente.</p>
+      
+      <div class="form-group">
+        <label>Seed Phrase (BIP39)</label>
+        <textarea id="setupSeed" placeholder="apple banana cherry..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Crie um PIN (6 dígitos)</label>
+        <input type="password" id="setupPin" maxlength="6" placeholder="000000">
+      </div>
+
+      <div class="error-msg" id="setupError"></div>
+      <button class="btn" id="btnImport">Importar Carteira</button>
+    </div>
+
+    <!-- View: Unlock -->
+    <div id="view-unlock" class="view">
+      <h2>Desbloquear</h2>
+      <p>Digite seu PIN para acessar a carteira.</p>
+
+      <div class="form-group">
+        <label>PIN</label>
+        <input type="password" id="unlockPin" maxlength="6" placeholder="000000">
+      </div>
+
+      <div class="error-msg" id="unlockError"></div>
+      <button class="btn" id="btnUnlock">Desbloquear</button>
+    </div>
+
+    <!-- View: Sign Request -->
+    <div id="view-sign" class="view">
+      <h2>Solicitação de Assinatura</h2>
+      <p>Verifique os detalhes da transação antes de assinar.</p>
+
+      <div class="tx-details">
+        <div class="tx-row">
+          <span class="tx-label">Para:</span>
+          <span class="tx-value" id="txTo">0x...</span>
+        </div>
+        <div class="tx-row">
+          <span class="tx-label">Valor:</span>
+          <span class="tx-value" id="txValue">0 ETH</span>
+        </div>
+        <div class="tx-row">
+          <span class="tx-label">Chain ID:</span>
+          <span class="tx-value" id="txChainId">1</span>
+        </div>
+        <div class="tx-row">
+          <span class="tx-label">Rede:</span>
+          <span class="tx-value" id="txChainName">—</span>
+        </div>
+        <div class="tx-row">
+          <span class="tx-label">Moeda de Taxa:</span>
+          <span class="tx-value" id="txFeeCurrency">—</span>
+        </div>
+        <div class="tx-row">
+          <span class="tx-label">Gas Limit:</span>
+          <span class="tx-value" id="txGasLimit">—</span>
+        </div>
+        <div class="tx-row">
+          <span class="tx-label">Preço do Gás:</span>
+          <span class="tx-value" id="txGasPrice">—</span>
+        </div>
+        <div class="tx-row">
+          <span class="tx-label">Taxa Estimada:</span>
+          <span class="tx-value" id="txEstimatedFee">—</span>
+        </div>
+         <div class="tx-row">
+          <span class="tx-label">Origem:</span>
+          <span class="tx-value" id="txOrigin">example.com</span>
+        </div>
+      </div>
+
+      <div class="error-msg" id="signError"></div>
+      <button class="btn" id="btnApprove">Assinar Transação</button>
+      <button class="btn btn-secondary" id="btnReject">Rejeitar</button>
+    </div>
+
+    <!-- View: Idle -->
+    <div id="view-idle" class="view">
+      <h2>Pronto</h2>
+      <p>A extensão está ativa e aguardando solicitações de assinatura.</p>
+      <div class="tx-details">
+         <div class="tx-row">
+            <span class="tx-label">Status</span>
+            <span class="tx-value">Online</span>
+         </div>
+      </div>
+    </div>
+
+  </div>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

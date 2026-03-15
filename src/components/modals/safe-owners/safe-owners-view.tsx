@@ -16,8 +16,8 @@ export const SafeOwnersView = ({ owners, isLoading, onEditClick, onDeleteClick }
   const handleCopyAddress = useCallback(
     (address: string) => {
       copyToClipboard(address, {
-        successMessage: "Address copied to clipboard",
-        errorMessage: "Failed to copy address",
+        successMessage: "Endereço copiado para a área de transferência",
+        errorMessage: "Falha ao copiar endereço",
       });
     },
     [copyToClipboard],
@@ -56,7 +56,7 @@ export const SafeOwnersView = ({ owners, isLoading, onEditClick, onDeleteClick }
       {!isLoading && owners.length === 0 && (
         <div className="flex flex-col items-center justify-center py-8">
           <InboxIcon className="w-10 h-10 mb-2 text-muted-foreground" />
-          <div className="text-center text-muted-foreground">No safe owners found</div>
+          <div className="text-center text-muted-foreground">Nenhum proprietário do Safe encontrado</div>
         </div>
       )}
 
@@ -64,7 +64,7 @@ export const SafeOwnersView = ({ owners, isLoading, onEditClick, onDeleteClick }
         <div className="space-y-4">
           {owners.map((ownerAddress, index) => (
             <div key={ownerAddress || index} className="space-y-2">
-              <div className="text-sm text-muted-foreground">Owner Address</div>
+              <div className="text-sm text-muted-foreground">Endereço do proprietário</div>
               <div className="flex items-center gap-2">
                 <div className="flex-1 p-3 bg-muted/50 rounded-lg font-mono text-xs text-foreground break-all">
                   {ownerAddress}
@@ -95,7 +95,7 @@ export const SafeOwnersView = ({ owners, isLoading, onEditClick, onDeleteClick }
 
       {!isLoading && (
         <Button className="w-full bg-brand hover:bg-brand/90 text-button-black font-medium" onClick={onEditClick}>
-          Add owner
+          Adicionar proprietário
         </Button>
       )}
     </div>

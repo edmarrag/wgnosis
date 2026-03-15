@@ -41,9 +41,9 @@ export const CardsOrderModal = ({ open, onOpenChange }: CardsOrderModalProps) =>
       <DialogContent className="max-w-lg" data-testid="card-order-modal">
         <DialogHeader>
           <DialogTitle>
-            {step === CardsOrderStep.Selection && "Order a card"}
-            {step === CardsOrderStep.Virtual && "Virtual card order"}
-            {step === CardsOrderStep.LinkPhysical && "Link a physical card"}
+            {step === CardsOrderStep.Selection && "Pedir um cartão"}
+            {step === CardsOrderStep.Virtual && "Pedido de cartão virtual"}
+            {step === CardsOrderStep.LinkPhysical && "Vincular um cartão físico"}
           </DialogTitle>
         </DialogHeader>
 

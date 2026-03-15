@@ -72,10 +72,10 @@ export const OnchainTransferRow = ({ transfer, currency }: OnchainTransferRowPro
           <div className="flex flex-col">
             <div className="text-lg text-primary">
               {isRewardTransfer
-                ? "Reward"
+                ? "Recompensa"
                 : isRefundTransfer
-                  ? "Refund"
-                  : `${isIncoming ? "From" : "To"} ${shortenAddress(isIncoming ? transfer.from : transfer.to)}`}
+                  ? "Reembolso"
+                  : `${isIncoming ? "De" : "Para"} ${shortenAddress(isIncoming ? transfer.from : transfer.to)}`}
             </div>
             <div className="text-xs text-secondary mt-1">{format(transfer.date, "HH:mm")}</div>
           </div>

@@ -53,7 +53,7 @@ export const PersonalDetailsModal: React.FC<PersonalDetailsModalProps> = ({ open
     <Dialog open={open} onOpenChange={handleOnOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>{isEditingPhone ? "Change phone number" : "Personal details"}</DialogTitle>
+          <DialogTitle>{isEditingPhone ? "Alterar número de telefone" : "Dados pessoais"}</DialogTitle>
         </DialogHeader>
 
         {isEditingPhone ? (
@@ -63,48 +63,48 @@ export const PersonalDetailsModal: React.FC<PersonalDetailsModalProps> = ({ open
               onComplete={handlePhoneVerificationComplete}
               setError={handleSetError}
               onCancel={() => setIsEditingPhone(false)}
-              title=""
+              title="Alterar número de telefone"
             />
           </div>
         ) : (
           <div className="space-y-6">
             <div>
-              <span className="text-sm text-muted-foreground">Name</span>
-              <div>{fullName || "Not provided"}</div>
+              <span className="text-sm text-muted-foreground">Nome</span>
+              <div>{fullName || "Não informado"}</div>
             </div>
 
             <div>
-              <span className="text-sm text-muted-foreground">Email</span>
-              <div>{user?.email || "Not provided"}</div>
+              <span className="text-sm text-muted-foreground">E-mail</span>
+              <div>{user?.email || "Não informado"}</div>
             </div>
 
             <div>
-              <span className="text-sm text-muted-foreground">Phone</span>
+              <span className="text-sm text-muted-foreground">Telefone</span>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  {user?.phone || "Not provided"}
+                  {user?.phone || "Não informado"}
                   {user?.phone &&
                     (user?.isPhoneValidated ? (
                       <div className="flex items-center text-muted-foreground">
                         <CheckCircle className="w-4 h-4 mr-1" />
-                        <span className="text-sm">Verified</span>
+                        <span className="text-sm">Verificado</span>
                       </div>
                     ) : (
                       <div className="flex items-center text-muted-foreground">
                         <XCircle className="w-4 h-4 mr-1" />
-                        <span className="text-sm">Not verified</span>
+                        <span className="text-sm">Não verificado</span>
                       </div>
                     ))}
                 </div>
                 <Button variant="outline" size="sm" onClick={handleEditPhoneClick} className="w-fit">
-                  Edit phone number
+                  Editar número de telefone
                 </Button>
               </div>
             </div>
 
             <div>
-              <span className="text-sm text-muted-foreground">Address</span>
-              <div className="whitespace-pre-line">{formattedAddress || "Not provided"}</div>
+              <span className="text-sm text-muted-foreground">Endereço</span>
+              <div className="whitespace-pre-line">{formattedAddress || "Não informado"}</div>
             </div>
           </div>
         )}

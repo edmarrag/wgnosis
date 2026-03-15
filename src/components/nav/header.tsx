@@ -5,55 +5,56 @@ import { useTheme } from "../../context/ThemeContext";
 import { NavLink } from "react-router-dom";
 import { menuRoutes } from "@/App";
 import { Button } from "@/components/ui/button";
-import { useAppKit } from "@reown/appkit/react";
-import { useAccount } from "wagmi";
 import { useCallback } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { useState } from "react";
+import { ConnectExtensionModal } from "@/components/connect/ConnectExtensionModal";
 
 export const HeaderNavBar = () => {
   const { effectiveTheme } = useTheme();
-  const { isConnected } = useAccount();
-  const { open } = useAppKit();
+  const { isAuthenticated, renewToken } = useAuth();
+  const [connectOpen, setConnectOpen] = useState(false);
 
   const handleConnect = useCallback(() => {
-    open();
-  }, [open]);
+    setConnectOpen(true);
+  }, []);
 
   return (
-    <header className="w-full border-b hidden lg:block">
-      <div className="py-4 flex items-center px-4">
-        <div className="flex items-center justify-between w-full">
-          <div className="flex items-center gap-12">
-            {/* Logo */}
-            <div className="flex items-center gap-2">
-              <a href="/">
-                <img src={effectiveTheme === "light" ? lightLogo : darklogo} alt="Gnosis Pay logo" />
-              </a>
+    <>
+      <header className="w-full border-b hidden lg:block">
+        <div className="py-4 flex items-center px-4">
+          <div className="flex items-center justify-between w-full">
+            <div className="flex items-center gap-12">
+              <div className="flex items-center gap-2">
+                <a href="/">
+                  <img src={effectiveTheme === "light" ? lightLogo : darklogo} alt="Gnosis Pay logo" />
+                </a>
+              </div>
+              <div className="flex items-center gap-8">
+                {menuRoutes.map((route) => (
+                  <NavLink
+                    key={route.path}
+                    to={route.path}
+                    className={({ isActive }) =>
+                      `flex items-center gap-2 text-sm font-semibold transition-colors ${
+                        isActive ? "text-link-active" : "text-link-secondary"
+                      }`
+                    }
+                  >
+                    <route.icon size={16} />
+                    {route.label}
+                  </NavLink>
+                ))}
+              </div>
             </div>
-            {/* Navigation */}
-            <div className="flex items-center gap-8">
-              {menuRoutes.map((route) => (
-                <NavLink
-                  key={route.path}
-                  to={route.path}
-                  className={({ isActive }) =>
-                    `flex items-center gap-2 text-sm font-semibold transition-colors ${
-                      isActive ? "text-link-active" : "text-link-secondary"
-                    }`
-                  }
-                >
-                  <route.icon size={16} />
-                  {route.label}
-                </NavLink>
-              ))}
+            <div className="flex gap-2 items-center justify-end">
+              {isAuthenticated ? <Button disabled>Conectado</Button> : <Button onClick={handleConnect}>Conectar</Button>}
+              <ModeToggle />
             </div>
-          </div>
-          {/* Actions */}
-          <div className="flex gap-2 items-center justify-end">
-            {isConnected ? <appkit-account-button /> : <Button onClick={handleConnect}>Connect</Button>}
-            <ModeToggle />
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+      <ConnectExtensionModal open={connectOpen} onOpenChange={setConnectOpen} />
+    </>
   );
 };

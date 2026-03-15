@@ -37,7 +37,7 @@ export const SetPinStep = ({ cardToken }: SetPinStepProps) => {
       try {
         const gpSdk = await getGpSdk({ actionCallback });
         if (!gpSdk) {
-          const errorMessage = "PSE SDK not initialized";
+          const errorMessage = "PSE SDK não inicializado";
           console.error(errorMessage);
           setError(errorMessage);
           return;
@@ -50,7 +50,7 @@ export const SetPinStep = ({ cardToken }: SetPinStepProps) => {
         pinInputIframeRef.current = sp;
       } catch (error) {
         console.error("Error initializing PIN iframe:", error);
-        setError("Failed to initialize PIN setting");
+        setError("Falha ao inicializar a definição de PIN");
       }
     },
     [getGpSdk, iframeId, actionCallback],
@@ -58,7 +58,7 @@ export const SetPinStep = ({ cardToken }: SetPinStepProps) => {
 
   useEffect(() => {
     if (!cardToken) {
-      const errorMessage = "No card token provided";
+      const errorMessage = "Nenhum card token fornecido";
       console.error(errorMessage);
       setError(errorMessage);
       return;
@@ -70,19 +70,19 @@ export const SetPinStep = ({ cardToken }: SetPinStepProps) => {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h1 className="text-2xl font-semibold text-foreground">Set Your Card PIN</h1>
+        <h1 className="text-2xl font-semibold text-foreground">Defina o PIN do seu cartão</h1>
         <p className="text-muted-foreground mt-2">
-          Your card has been created successfully. Please set a secure PIN to complete the process.
+          Seu cartão foi criado com sucesso. Defina um PIN seguro para concluir o processo.
         </p>
         <StandardAlert
           variant="info"
           description={
             <p className="text-left">
-              This step is required to use your card.
+              Esta etapa é obrigatória para utilizar seu cartão.
               <br />
-              There will be no way to set the PIN after this step.
+              Não será possível definir o PIN após esta etapa.
               <br />
-              Do not refresh or close this page until the PIN is set.
+              Não atualize nem feche esta página até definir o PIN.
             </p>
           }
           className="mt-4"

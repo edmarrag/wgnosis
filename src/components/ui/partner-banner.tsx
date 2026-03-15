@@ -62,7 +62,7 @@ export function PartnerBanner({ className }: PartnerBannerProps) {
             handleDismiss();
           }}
           className="absolute top-2 right-2 p-1 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 cursor-pointer z-10"
-          aria-label="Dismiss banner"
+          aria-label="Dispensar banner"
           data-testid="partner-banner-dismiss"
         >
           <X size={14} className="text-foreground" />
@@ -70,10 +70,10 @@ export function PartnerBanner({ className }: PartnerBannerProps) {
           
           <div className="w-3/4">
             <h3 className="font-semibold text-foreground mb-1 text-xs leading-4">
-              📱 Discover partner apps
+              📱 Conheça os aplicativos parceiros
             </h3>
             <p className="text-xs font-normal leading-4 text-muted-foreground">
-              For the best Gnosis Pay experience, try our partner apps
+              Para a melhor experiência Gnosis Pay, experimente nossos apps parceiros
             </p>
           </div>
         </div>

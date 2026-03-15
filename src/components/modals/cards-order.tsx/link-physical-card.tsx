@@ -40,11 +40,11 @@ export const LinkPhysicalCard = ({ onClose, onGoBack }: CardsOrderPhysicalProps)
     const response = await getApiV1UserCardPublicKey();
 
     if (response.error) {
-      throw new Error(extractErrorMessage(response.error, "Failed to get card public key"));
+      throw new Error(extractErrorMessage(response.error, "Falha ao obter chave pública do cartão"));
     }
 
     if (!response.data) {
-      throw new Error("No data returned from card public key endpoint");
+      throw new Error("Nenhum dado retornado pelo endpoint de chave pública do cartão");
     }
 
     return response.data.publicKey;
@@ -54,7 +54,7 @@ export const LinkPhysicalCard = ({ onClose, onGoBack }: CardsOrderPhysicalProps)
     const sanitizedPan = pan.replace(/\s/g, "").trim();
 
     if (!validatePan(pan)) {
-      setPanError("Invalid card number");
+      setPanError("Número do cartão inválido");
       return;
     }
 
@@ -71,7 +71,7 @@ export const LinkPhysicalCard = ({ onClose, onGoBack }: CardsOrderPhysicalProps)
       const encryptedPan = await encryptSecret(sanitizedPan, key, iv);
 
       if (!encryptedPan) {
-        throw new Error("Failed to encrypt PAN");
+        throw new Error("Falha ao criptografar PAN");
       }
 
       const response = await postApiV1CardsVerify({
@@ -83,31 +83,31 @@ export const LinkPhysicalCard = ({ onClose, onGoBack }: CardsOrderPhysicalProps)
       });
 
       if (response.error) {
-        const errorMessage = extractErrorMessage(response.error, "Failed to verify card");
+        const errorMessage = extractErrorMessage(response.error, "Falha ao verificar cartão");
         setPanError(errorMessage);
         setIsLoading(false);
         return;
       }
 
       if (!response.data) {
-        throw new Error("No data returned from verify endpoint");
+        throw new Error("Nenhum dado retornado pelo endpoint de verificação");
       }
 
       const { cardId } = response.data;
 
       if (!cardId) {
-        throw new Error("Failed to verify card");
+        throw new Error("Falha ao verificar cartão");
       }
 
-      toast.success("Card linked successfully");
+      toast.success("Cartão vinculado com sucesso");
       refreshCards();
       setIsLoading(false);
       onClose();
     } catch (error) {
       console.error("Error verifying card:", error);
-      const errorMessage = extractErrorMessage(error, "Failed to verify card");
+      const errorMessage = extractErrorMessage(error, "Falha ao verificar cartão");
       setPanError(errorMessage);
-      toast.error(<CollapsedError title="Error linking card" error={error} />);
+      toast.error(<CollapsedError title="Erro ao vincular cartão" error={error} />);
       setIsLoading(false);
     }
   }, [pan, validatePan, getFutureCardPublicKey, refreshCards, onClose]);
@@ -121,7 +121,7 @@ export const LinkPhysicalCard = ({ onClose, onGoBack }: CardsOrderPhysicalProps)
   return (
     <div className="space-y-4" data-testid="physical-card-link-step">
       <div className="space-y-2">
-        <Label htmlFor="pan">Card number</Label>
+        <Label htmlFor="pan">Número do cartão</Label>
         <Input
           id="pan"
           type="text"
@@ -137,10 +137,10 @@ export const LinkPhysicalCard = ({ onClose, onGoBack }: CardsOrderPhysicalProps)
 
       <DialogFooter className="justify-end">
         <Button variant="outline" onClick={onGoBack} data-testid="back-button" disabled={isLoading}>
-          Back
+          Voltar
         </Button>
         <Button disabled={disableSubmit} loading={isLoading} onClick={handleVerify} data-testid="link-card-button">
-          Link Card
+          Vincular cartão
         </Button>
       </DialogFooter>
     </div>

@@ -73,7 +73,7 @@ export function IbanBanner({ className }: IbanBannerProps) {
               handleDismiss();
             }}
             className="absolute top-2 right-2 p-1 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 cursor-pointer z-10"
-            aria-label="Dismiss IBAN banner"
+            aria-label="Dispensar banner de IBAN"
             data-testid="iban-banner-dismiss"
           >
             <X size={14} className="text-foreground" />
@@ -81,10 +81,10 @@ export function IbanBanner({ className }: IbanBannerProps) {
           
           <div className="w-3/4">
             <h3 className="font-semibold text-foreground mb-1 text-xs leading-4">
-              Create your IBAN
+              Crie seu IBAN
             </h3>
             <p className="text-xs font-normal leading-4 text-muted-foreground">
-              Get an IBAN to receive funds directly to your account
+              Obtenha um IBAN para receber fundos diretamente na sua conta
             </p>
           </div>
         </div>

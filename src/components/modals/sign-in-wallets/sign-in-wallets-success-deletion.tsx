@@ -13,14 +13,14 @@ export const SignInWalletsSuccessDeletion = ({ onBack }: SignInWalletsSuccessDel
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-lg font-semibold text-foreground">Wallet deleted</h3>
+        <h3 className="text-lg font-semibold text-foreground">Carteira excluída</h3>
         <p className="text-sm text-muted-foreground">
-          The wallet address has been successfully removed from your account.
+          O endereço de carteira foi removido da sua conta com sucesso.
         </p>
       </div>
 
       <Button className="w-full bg-button-bg hover:bg-button-bg-hover text-button-black font-medium" onClick={onBack}>
-        Back to wallets
+        Voltar para carteiras
       </Button>
     </div>
   );

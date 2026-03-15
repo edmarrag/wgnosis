@@ -38,8 +38,8 @@ export const BankTransferRow = ({ ibanOrder, index }: BankTransferRowProps) => {
   const Icon = isIncoming ? Plus : Minus;
   const sign = isIncoming ? "+" : "-";
 
-  const direction = isIncoming ? "From" : "To";
-  const transferTitle = counterpartName ? `${direction} ${counterpartName}` : "Bank transfer";
+  const direction = isIncoming ? "De" : "Para";
+  const transferTitle = counterpartName ? `${direction} ${counterpartName}` : "Transferência bancária";
 
   const formattedAmount = `${sign} ${formatDisplayAmount(Number(amount), currencies[currency.toUpperCase()])}`;
 

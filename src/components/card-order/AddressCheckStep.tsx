@@ -51,7 +51,7 @@ export const AddressCheckStep = ({ orderId, onNext }: AddressCheckStepProps) => 
     if (!order) return;
 
     if (!canContinue) {
-      setGlobalError(`This order has already been processed, status: ${order.status}`);
+      setGlobalError(`Este pedido já foi processado, status: ${order.status}`);
       return;
     }
   }, [canContinue, order]);
@@ -87,7 +87,7 @@ export const AddressCheckStep = ({ orderId, onNext }: AddressCheckStepProps) => 
         {order.country && <div>{COUNTRIES.find((c) => c.alpha2 === order.country)?.name}</div>}
       </div>
     ) : (
-      <div>No address provided</div>
+      <div>Nenhum endereço informado</div>
     );
   }, []);
 
@@ -130,7 +130,7 @@ export const AddressCheckStep = ({ orderId, onNext }: AddressCheckStepProps) => 
         });
 
         if (confirmError) {
-          const errorMessage = extractErrorMessage(confirmError, "Failed to confirm payment");
+          const errorMessage = extractErrorMessage(confirmError, "Falha ao confirmar pagamento");
           setGlobalError(errorMessage);
           console.error("Error confirming payment:", confirmError);
           return;
@@ -143,14 +143,14 @@ export const AddressCheckStep = ({ orderId, onNext }: AddressCheckStepProps) => 
       });
 
       if (createError) {
-        const errorMessage = extractErrorMessage(createError, "Failed to create card");
+        const errorMessage = extractErrorMessage(createError, "Falha ao criar cartão");
         setGlobalError(errorMessage);
         console.error("Error creating card:", createError);
         return;
       }
 
       if (!createData || !createData.cardToken) {
-        setGlobalError("An error occurred while creating the card, no cardToken was returned");
+        setGlobalError("Ocorreu um erro ao criar o cartão: nenhum cardToken retornado");
         console.error("Error creating card:", createData);
         return;
       }
@@ -158,7 +158,7 @@ export const AddressCheckStep = ({ orderId, onNext }: AddressCheckStepProps) => 
       const { cardToken } = createData;
       onNext(cardToken);
     } catch (error) {
-      const errorMessage = extractErrorMessage(error, "An unexpected error occurred");
+      const errorMessage = extractErrorMessage(error, "Ocorreu um erro inesperado");
       setGlobalError(errorMessage);
       console.error("Error completing order:", error);
     } finally {
@@ -171,7 +171,7 @@ export const AddressCheckStep = ({ orderId, onNext }: AddressCheckStepProps) => 
     return (
       <div className="flex flex-col items-center justify-center mt-4">
         <InboxIcon className="w-10 h-10 mb-2 text-secondary" />
-        <div className="text-center text-secondary">Order not found</div>
+        <div className="text-center text-secondary">Pedido não encontrado</div>
       </div>
     );
   }
@@ -183,8 +183,8 @@ export const AddressCheckStep = ({ orderId, onNext }: AddressCheckStepProps) => 
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h1 className="text-2xl font-semibold text-foreground">Confirm Order Details</h1>
-        <p className="text-muted-foreground mt-2">Please review your order details and shipping address</p>
+        <h1 className="text-2xl font-semibold text-foreground">Confirmar detalhes do pedido</h1>
+        <p className="text-muted-foreground mt-2">Revise os detalhes do pedido e o endereço de entrega</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -192,11 +192,11 @@ export const AddressCheckStep = ({ orderId, onNext }: AddressCheckStepProps) => 
         <div className="space-y-6">
           {/* Order Details */}
           <div className="bg-card rounded-lg p-6">
-            <h3 className="text-lg font-medium text-foreground mb-4">Order details</h3>
+            <h3 className="text-lg font-medium text-foreground mb-4">Detalhes do pedido</h3>
             <div className="space-y-3">
               {order.embossedName && (
                 <div>
-                  <div className="text-sm text-muted-foreground">Name on card</div>
+                  <div className="text-sm text-muted-foreground">Nome no cartão</div>
                   <div className="font-medium">{order.embossedName}</div>
                 </div>
               )}
@@ -205,7 +205,7 @@ export const AddressCheckStep = ({ orderId, onNext }: AddressCheckStepProps) => 
 
           {/* Shipping Address */}
           <div className="bg-card rounded-lg p-6">
-            <h3 className="text-lg font-medium text-foreground mb-4">Shipping address</h3>
+            <h3 className="text-lg font-medium text-foreground mb-4">Endereço de entrega</h3>
             <div className="text-sm">{formatAddress(order)}</div>
           </div>
         </div>
@@ -214,10 +214,10 @@ export const AddressCheckStep = ({ orderId, onNext }: AddressCheckStepProps) => 
         <div className="space-y-6">
           {/* Summary */}
           <div className="bg-card rounded-lg p-6">
-            <h3 className="text-lg font-medium text-foreground mb-4">Summary</h3>
+            <h3 className="text-lg font-medium text-foreground mb-4">Resumo</h3>
             <div className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Card order</span>
+                <span className="text-muted-foreground">Pedido do cartão</span>
                 <span className="font-medium">{formatDisplayAmount(totalAmount, currencies.EUR)}</span>
               </div>
               <div className="text-right text-sm text-muted-foreground">
@@ -226,7 +226,7 @@ export const AddressCheckStep = ({ orderId, onNext }: AddressCheckStepProps) => 
             </div>
             {discount > 0 && (
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Discount</span>
+                <span className="text-muted-foreground">Desconto</span>
                 <span className="font-medium text-success">-{formatDisplayAmount(discount, currencies.EUR)}</span>
               </div>
             )}
@@ -254,7 +254,7 @@ export const AddressCheckStep = ({ orderId, onNext }: AddressCheckStepProps) => 
             disabled={isCompletingOrder || isApplyingCoupon}
             onClick={() => cancelOrderWithConfirmation({ orderId, onSuccess: () => navigate("/") })}
           >
-            Cancel Order
+            Cancelar pedido
           </Button>
         )}
         <Button
@@ -263,7 +263,7 @@ export const AddressCheckStep = ({ orderId, onNext }: AddressCheckStepProps) => 
           loading={isCompletingOrder || isApplyingCoupon}
           disabled={isCompletingOrder || isApplyingCoupon || !canSubmit}
         >
-          Create Card & Set PIN
+          Criar cartão e definir PIN
         </Button>
       </div>
     </div>

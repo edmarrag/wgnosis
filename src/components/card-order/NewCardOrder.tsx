@@ -135,10 +135,8 @@ export const NewCardOrder = () => {
                   <Package className="w-6 h-6 text-muted-foreground" />
                 </div>
                 <div className="text-center space-y-1">
-                  <h3 className="font-medium text-foreground">Order Physical Card</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Enter your shipping address for physical card delivery
-                  </p>
+                  <h3 className="font-medium text-foreground">Pedir cartão físico</h3>
+                  <p className="text-sm text-muted-foreground">Informe o endereço de entrega do cartão físico</p>
                 </div>
               </>
             )}
@@ -151,7 +149,7 @@ export const NewCardOrder = () => {
             ) : (
               <div className="flex items-center gap-2 text-sm font-medium text-foreground">
                 <MapPin className="w-4 h-4" />
-                Shipping Address
+                Endereço de entrega
               </div>
             )}
 
@@ -165,11 +163,11 @@ export const NewCardOrder = () => {
                   </>
                 ) : (
                   <>
-                    <Label htmlFor="address1">Address Line 1 *</Label>
+                    <Label htmlFor="address1">Endereço (linha 1) *</Label>
                     <Input
                       id="address1"
                       data-testid="shipping-address-address1"
-                      placeholder="Street address"
+                      placeholder="Logradouro"
                       value={shippingAddress.address1}
                       onChange={(e) => updateShippingField("address1", e.target.value)}
                     />
@@ -186,11 +184,11 @@ export const NewCardOrder = () => {
                   </>
                 ) : (
                   <>
-                    <Label htmlFor="address2">Address Line 2</Label>
+                    <Label htmlFor="address2">Endereço (linha 2)</Label>
                     <Input
                       id="address2"
                       data-testid="shipping-address-address2"
-                      placeholder="Apartment, suite, etc. (optional)"
+                      placeholder="Apto., bloco, etc. (opcional)"
                       value={shippingAddress.address2}
                       onChange={(e) => updateShippingField("address2", e.target.value)}
                     />
@@ -208,11 +206,11 @@ export const NewCardOrder = () => {
                     </>
                   ) : (
                     <>
-                      <Label htmlFor="city">City *</Label>
+                      <Label htmlFor="city">Cidade *</Label>
                       <Input
                         id="city"
                         data-testid="shipping-address-city"
-                        placeholder="City"
+                        placeholder="Cidade"
                         value={shippingAddress.city}
                         onChange={(e) => updateShippingField("city", e.target.value)}
                       />
@@ -227,11 +225,11 @@ export const NewCardOrder = () => {
                     </>
                   ) : (
                     <>
-                      <Label htmlFor="postalCode">Postal Code *</Label>
+                      <Label htmlFor="postalCode">CEP *</Label>
                       <Input
                         id="postalCode"
                         data-testid="shipping-address-postal-code"
-                        placeholder="Postal code"
+                        placeholder="CEP"
                         value={shippingAddress.postalCode}
                         onChange={(e) => updateShippingField("postalCode", e.target.value)}
                       />
@@ -249,13 +247,13 @@ export const NewCardOrder = () => {
                   </>
                 ) : (
                   <>
-                    <Label htmlFor="country">Country *</Label>
+                    <Label htmlFor="country">País *</Label>
                     <Select
                       value={shippingAddress.country}
                       onValueChange={(value) => updateShippingField("country", value)}
                     >
                       <SelectTrigger data-testid="shipping-address-country">
-                        <SelectValue placeholder="Select country" />
+                        <SelectValue placeholder="Selecione o país" />
                       </SelectTrigger>
                       <SelectContent>
                         {SUPPORTED_SHIPPING_COUNTRIES.map(({ code, name }) => (
@@ -273,8 +271,8 @@ export const NewCardOrder = () => {
 
           {error && !isLoading && (
             <StandardAlert
-              title="Error"
-              description={extractErrorMessage(error, "Error creating order")}
+              title="Erro"
+              description={extractErrorMessage(error, "Erro ao criar pedido")}
               variant="destructive"
             />
           )}
@@ -288,7 +286,7 @@ export const NewCardOrder = () => {
                 loading={isLoadingCreation}
                 onClick={createOrder}
               >
-                Continue
+                Continuar
               </Button>
             )}
           </div>

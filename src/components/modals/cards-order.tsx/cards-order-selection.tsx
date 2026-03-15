@@ -19,20 +19,20 @@ export const CardsOrderSelection = ({ onVirtualCardOrder, onClose, onPhysicalCar
     () => [
       {
         icon: Smartphone,
-        title: "Virtual Card",
-        description: "Instant digital card for online purchases",
+        title: "Cartão virtual",
+        description: "Cartão digital instantâneo para compras online",
         onClick: onVirtualCardOrder,
       },
       {
         icon: CreditCard,
-        title: "Physical Card",
-        description: "Physical card delivered to your address",
+        title: "Cartão físico",
+        description: "Cartão físico entregue no seu endereço",
         onClick: handlePhysicalCardOrder,
       },
       {
         icon: Link,
-        title: "Link Physical Card",
-        description: "Link an existing physical card",
+        title: "Vincular cartão físico",
+        description: "Vincule um cartão físico existente",
         onClick: onPhysicalCardLink,
       },
     ],
@@ -41,7 +41,7 @@ export const CardsOrderSelection = ({ onVirtualCardOrder, onClose, onPhysicalCar
 
   return (
     <div className="space-y-4">
-      <p className="text-muted-foreground text-sm">Choose the type of card you'd like to order:</p>
+      <p className="text-muted-foreground text-sm">Escolha o tipo de cartão que deseja pedir:</p>
 
       <div className="space-y-3">
         {cardOptions.map(({ icon, title, description, onClick }) => {

@@ -80,7 +80,7 @@ export const OtpInput = ({ value, onChange, isLoading, disabled, "data-testid": 
             inputsRef.current[idx] = el;
           }}
           disabled={isLoading || disabled}
-          aria-label={`Digit ${idx + 1}`}
+          aria-label={`Dígito ${idx + 1}`}
           data-testid={dataTestId ? `${dataTestId}-digit-${idx}` : undefined}
         />
       ))}

@@ -69,10 +69,10 @@ export const CardsRoute = () => {
       <div className="col-span-6 md:col-span-4 md:col-start-2 px-4 sm:px-0">
         <PendingCardOrder />
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold">Cards</h1>
+          <h1 className="text-2xl font-semibold">Cartões</h1>
           <Button variant="default" className="mt-6" onClick={() => setOpen(true)}>
             <PlusIcon className="w-4 h-4" />
-            Add Card
+            Adicionar cartão
           </Button>
         </div>
       </div>
@@ -88,7 +88,7 @@ export const CardsRoute = () => {
       </div>
       <div className="col-span-6 mx-4 lg:mx-0 lg:col-span-4 lg:col-start-2">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="font-bold text-secondary">Transactions</h1>
+          <h1 className="font-bold text-secondary">Transações</h1>
           {selectedCard?.cardToken && (
             <CSVDownloadModal
               preSelectedCardToken={selectedCard.cardToken}
@@ -104,7 +104,7 @@ export const CardsRoute = () => {
             <div className="flex flex-col gap-4 bg-card p-4 rounded-lg">
               <div className="flex flex-col items-center justify-center mt-4">
                 <InboxIcon className="w-10 h-10 mb-2 text-secondary" />
-                <div className="text-center text-secondary">No cards found.</div>
+                <div className="text-center text-secondary">Nenhum cartão encontrado.</div>
               </div>
             </div>
           </div>

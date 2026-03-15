@@ -20,13 +20,13 @@ export const PendingCardOrder = () => {
   const getStatusText = useCallback((status: CardOrder["status"]) => {
     switch (status) {
       case "PENDINGTRANSACTION":
-        return "Pending Confirmation";
+        return "Confirmação pendente";
       case "TRANSACTIONCOMPLETE":
-        return "Verification Required";
+        return "Verificação requerida";
       case "CONFIRMATIONREQUIRED":
-        return "Verification Needed";
+        return "Verificação necessária";
       case "READY":
-        return "Ready for Processing";
+        return "Pronto para processamento";
       default:
         return status;
     }
@@ -49,7 +49,7 @@ export const PendingCardOrder = () => {
           <Package className="w-5 h-5 text-warning" />
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-foreground mb-1">Pending Card Order</h3>
+          <h3 className="font-semibold text-foreground mb-1">Pedido de cartão pendente</h3>
           <div className="flex items-center gap-2 mb-4">
             <Clock className="w-4 h-4 text-muted-foreground" />
             <span className="text-sm text-muted-foreground" data-testid="pending-order-status">
@@ -65,7 +65,7 @@ export const PendingCardOrder = () => {
               className="flex-1"
               data-testid="pending-order-resume-button"
             >
-              Resume
+              Retomar
             </Button>
             <Button
               size="sm"
@@ -74,7 +74,7 @@ export const PendingCardOrder = () => {
               className="flex-1"
               data-testid="pending-order-cancel-button"
             >
-              Cancel
+              Cancelar
             </Button>
           </div>
         </div>

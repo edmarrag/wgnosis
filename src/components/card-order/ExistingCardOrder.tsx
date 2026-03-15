@@ -27,7 +27,7 @@ export const ExistingCardOrder = () => {
   if (!orderId) {
     return (
       <div className="flex flex-col items-center justify-center mt-4">
-        <div className="text-center text-secondary">Invalid order ID</div>
+        <div className="text-center text-secondary">ID do pedido inválido</div>
       </div>
     );
   }

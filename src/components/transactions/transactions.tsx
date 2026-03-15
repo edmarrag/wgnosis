@@ -27,7 +27,7 @@ export const Transactions = () => {
         {/* Transaction Tabs with Download Button */}
         <div className="flex items-center justify-between border-b border-border mb-4">
           <TransactionTabs value={selectedType} onValueChange={handleTabChange} className="border-b-0 mb-0">
-            <TransactionTab value={TransactionType.CARD}>Card</TransactionTab>
+            <TransactionTab value={TransactionType.CARD}>Cartão</TransactionTab>
             <TransactionTab value={TransactionType.ONCHAIN}>On-chain</TransactionTab>
             {hasIbanSet && <TransactionTab value={TransactionType.IBAN}>IBAN</TransactionTab>}
           </TransactionTabs>

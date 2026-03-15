@@ -13,14 +13,14 @@ export const SafeOwnersSuccessAddition = ({ onBack }: SafeOwnersSuccessAdditionP
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-lg font-semibold text-foreground">Success</h3>
+        <h3 className="text-lg font-semibold text-foreground">Sucesso</h3>
         <p className="text-sm text-muted-foreground">
-          The transaction has been queued successfully. It will be processed in 3 minutes.
+          A transação foi enfileirada com sucesso. Ela será processada em 3 minutos.
         </p>
       </div>
 
       <Button className="w-full bg-button-bg hover:bg-button-bg-hover text-button-black font-medium" onClick={onBack}>
-        Back to owners
+        Voltar para proprietários
       </Button>
     </div>
   );

@@ -38,7 +38,7 @@ export const SendFundsModal = ({ open, onOpenChange }: AddFundsModalProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md" aria-describedby={undefined}>
-        <DialogTitle>Send funds</DialogTitle>
+        <DialogTitle>Enviar fundos</DialogTitle>
 
         {step === Step.Form && <SendFundsForm onNext={handleFormNext} />}
         {step === Step.Confirm && formData && (

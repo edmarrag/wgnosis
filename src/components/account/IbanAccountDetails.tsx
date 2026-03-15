@@ -18,32 +18,32 @@ export const IbanAccountDetails = () => {
 
   const handleCopyBeneficiary = () => {
     copyToClipboard(fullName, {
-      successMessage: "Beneficiary name copied to clipboard",
-      errorMessage: "Failed to copy beneficiary name",
+      successMessage: "Nome do beneficiário copiado para a área de transferência",
+      errorMessage: "Falha ao copiar nome do beneficiário",
     });
   };
 
   const handleCopyIban = () => {
     const iban = user?.bankingDetails?.moneriumIban || "";
     copyToClipboard(iban, {
-      successMessage: "IBAN copied to clipboard",
-      errorMessage: "Failed to copy IBAN",
+      successMessage: "IBAN copiado para a área de transferência",
+      errorMessage: "Falha ao copiar IBAN",
     });
   };
 
   const handleCopyBic = () => {
     const bic = user?.bankingDetails?.moneriumBic || "";
     copyToClipboard(bic, {
-      successMessage: "BIC copied to clipboard",
-      errorMessage: "Failed to copy BIC",
+      successMessage: "BIC copiado para a área de transferência",
+      errorMessage: "Falha ao copiar BIC",
     });
   };
 
   const handleCopyAddress = () => {
     const address = user?.bankingDetails?.address || "";
     copyToClipboard(address, {
-      successMessage: "Address copied to clipboard",
-      errorMessage: "Failed to copy address",
+      successMessage: "Endereço copiado para a área de transferência",
+      errorMessage: "Falha ao copiar endereço",
     });
   };
 
@@ -53,7 +53,7 @@ export const IbanAccountDetails = () => {
       <div className="space-y-4">
         {!isSuccessIbanIntegration && (
           <div className="text-center text-muted-foreground mb-4">
-            Create an IBAN to receive bank transfers directly to your account.
+            Crie um IBAN para receber transferências bancárias diretamente na sua conta.
           </div>
         )}
         <IbanIntegrationFlow showCancelButton={false} onSuccess={() => setIsSuccessIbanIntegration(true)} />
@@ -66,7 +66,7 @@ export const IbanAccountDetails = () => {
     return (
       <div className="flex flex-col items-center justify-center mt-4">
         <InboxIcon className="w-10 h-10 mb-2 text-secondary" />
-        <div className="text-center text-secondary">No IBAN available for this account</div>
+        <div className="text-center text-secondary">Nenhum IBAN disponível para esta conta</div>
       </div>
     );
   }
@@ -75,10 +75,10 @@ export const IbanAccountDetails = () => {
     <>
       <div className="space-y-4">
         <div>
-          <div className="text-sm font-medium text-muted-foreground mb-2">Linked address</div>
+          <div className="text-sm font-medium text-muted-foreground mb-2">Endereço vinculado</div>
           <div className="flex items-center gap-2">
             <div className="flex-1 p-3 bg-muted/50 rounded-lg font-medium text-foreground text-sm">
-              {user?.bankingDetails?.address || "N/A"}
+              {user?.bankingDetails?.address || "N/D"}
             </div>
             {user?.bankingDetails?.address && (
               <Button variant="outline" size="sm" onClick={handleCopyAddress} className="p-2 flex-shrink-0">
@@ -88,7 +88,7 @@ export const IbanAccountDetails = () => {
           </div>
         </div>
         <div>
-          <div className="text-sm font-medium text-muted-foreground mb-2">Beneficiary</div>
+          <div className="text-sm font-medium text-muted-foreground mb-2">Beneficiário</div>
           <div className="flex items-center gap-2">
             <div className="flex-1 p-3 bg-muted/50 rounded-lg font-medium text-foreground">{fullName}</div>
             {fullName && (
@@ -103,7 +103,7 @@ export const IbanAccountDetails = () => {
           <div className="text-sm font-medium text-muted-foreground mb-2">IBAN</div>
           <div className="flex items-center gap-2">
             <div className="flex-1 p-3 bg-muted/50 rounded-lg font-mono text-foreground">
-              {user?.bankingDetails?.moneriumIban || "N/A"}
+              {user?.bankingDetails?.moneriumIban || "N/D"}
             </div>
             {user?.bankingDetails?.moneriumIban && (
               <Button variant="outline" size="sm" onClick={handleCopyIban} className="p-2 flex-shrink-0">
@@ -117,7 +117,7 @@ export const IbanAccountDetails = () => {
           <div className="text-sm font-medium text-muted-foreground mb-2">BIC</div>
           <div className="flex items-center gap-2">
             <div className="flex-1 p-3 bg-muted/50 rounded-lg font-mono text-foreground">
-              {user?.bankingDetails?.moneriumBic || "N/A"}
+              {user?.bankingDetails?.moneriumBic || "N/D"}
             </div>
             {user?.bankingDetails?.moneriumBic && (
               <Button variant="outline" size="sm" onClick={handleCopyBic} className="p-2 flex-shrink-0">
@@ -129,28 +129,27 @@ export const IbanAccountDetails = () => {
       </div>
 
       <div className="space-y-3 pt-4 border-t border-border">
-        <StandardAlert variant="warning" description="Counterpart bank may charge for international payments." />
+        <StandardAlert variant="warning" description="O banco da contraparte pode cobrar por pagamentos internacionais." />
 
         <StandardAlert
           variant="info"
-          description={`All transfers go through SEPA Instant. SEPA Standard is used when the counterpart bank does not support SEPA Instant, or the amount exceeds 100,000 ${safeConfig?.fiatSymbol}.`}
+          description={`Todas as transferências passam pelo SEPA Instant. O SEPA Standard é usado quando o banco da contraparte não suporta SEPA Instant ou o valor excede 100.000 ${safeConfig?.fiatSymbol}.`}
         />
 
-        <StandardAlert variant="info" description="SEPA transfers may take up to one business day." />
+        <StandardAlert variant="info" description="Transferências SEPA podem levar até um dia útil." />
 
         <StandardAlert
           variant="info"
           description={
             <>
-              The IBAN and related services are provided by Monerium EMI ehf., a third party electronic money
-              institution{" "}
+              O IBAN e os serviços relacionados são fornecidos pela Monerium EMI ehf., uma instituição de moeda eletrônica terceirizada{" "}
               <a
                 href={ADD_FUNDS_CONSTANTS.MONERIUM_AUTHORISED_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline underline-offset-2"
               >
-                authorised by the Financial Supervisory Authority of the Central Bank of Iceland.
+                autorizada pela Autoridade de Supervisão Financeira do Banco Central da Islândia.
               </a>
             </>
           }

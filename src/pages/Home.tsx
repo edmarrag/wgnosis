@@ -32,9 +32,9 @@ export const Home = () => {
             <Balances />
             <div className="mb-12 mt-4 flex gap-4 mx-4 lg:mx-0">
               <Button onClick={() => setSendFundsModalOpen(true)} data-testid="send-funds-button">
-                Send funds
+              Enviar fundos
               </Button>
-              <Button onClick={() => setAddFundsModalOpen(true)}>Add funds</Button>
+            <Button onClick={() => setAddFundsModalOpen(true)}>Adicionar fundos</Button>
             </div>
           </div>
 
@@ -48,14 +48,14 @@ export const Home = () => {
           <div className="m-4 lg:m-0 lg:col-span-1 lg:col-start-3 lg:row-start-2">
             <div className="flex items-center justify-between mb-4">
               <h1 className="font-bold text-secondary text-lg">
-                Rewards <StatusHelpIcon type="rewards" />
+                Recompensas <StatusHelpIcon type="rewards" />
               </h1>
             </div>
             <Rewards />
             <div className="flex items-center justify-between mb-4 mt-6">
-              <h1 className="font-bold text-secondary text-lg">Cards</h1>
+              <h1 className="font-bold text-secondary text-lg">Cartões</h1>
               <Link to="/cards" className="flex items-center gap-2">
-                View details <ChevronRight size={16} />
+                Ver detalhes <ChevronRight size={16} />
               </Link>
             </div>
             <Cards />
@@ -64,7 +64,7 @@ export const Home = () => {
           {/* Transactions - Last on mobile, Row 2 Left on desktop */}
           <div className="mx-4 lg:mx-0 lg:col-span-2 lg:row-start-2">
             <div className="flex items-center justify-between mb-4">
-              <h1 className="font-bold text-secondary text-lg">Transactions</h1>
+              <h1 className="font-bold text-secondary text-lg">Transações</h1>
             </div>
             <Transactions />
           </div>

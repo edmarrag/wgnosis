@@ -195,7 +195,7 @@ export const CardsCarousel = ({
             type="button"
             onClick={prevCard}
             className="hidden lg:block absolute left-2 top-1/2 -translate-y-1/2 text-primary z-10 bg-background opacity-80 rounded-full p-1 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity cursor-pointer"
-            aria-label="Previous card"
+            aria-label="Cartão anterior"
             data-testid="card-carousel-arrow-prev"
           >
             <ChevronLeft strokeWidth={1} size={24} />
@@ -218,7 +218,7 @@ export const CardsCarousel = ({
                 } ${index === 0 ? "ml-[calc(50%-10rem)] sm:ml-0" : index === cards.length - 1 ? "mr-[calc(50%-10rem)] sm:mr-0" : ""}`}
               >
                 <CardPreview
-                  cardType={card.virtual ? "Virtual" : "Physical"}
+                  cardType={card.virtual ? "Virtual" : "Físico"}
                   cardInfo={cardInfo}
                   last4={card.lastFourDigits}
                 />
@@ -232,7 +232,7 @@ export const CardsCarousel = ({
             type="button"
             onClick={nextCard}
             className="hidden lg:block absolute right-2 top-1/2 -translate-y-1/2 z-10 text-primary bg-background opacity-80 rounded-full p-1 shadow-md lg:opacity-0 lg:group-hover:opacity-100 transition-opacity cursor-pointer"
-            aria-label="Next card"
+            aria-label="Próximo cartão"
             data-testid="card-carousel-arrow-next"
           >
             <ChevronRight strokeWidth={1} size={24} />
@@ -250,7 +250,7 @@ export const CardsCarousel = ({
                 type="button"
                 onClick={() => goToCard(index)}
                 className={`w-3 h-3 rounded-full transition-colors cursor-pointer border ${index === currentIndex ? "border-primary" : "bg-border"}`}
-                aria-label={`Go to card ${index + 1}`}
+                aria-label={`Ir para o cartão ${index + 1}`}
                 data-testid={`card-carousel-dot-${card.lastFourDigits}`}
               />
             ))}

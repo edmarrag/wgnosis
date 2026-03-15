@@ -23,7 +23,7 @@ export const KycRoute = () => {
     // an issue happened during the KYC process, sumsub rejected the application
     // or an action is required, they need to contact your support
     if (kycStatusesRequiringContact.includes(user.kycStatus)) {
-      setError("Your KYC application has encountered an issue. Please contact the support using the chat widget");
+      setError("Seu processo de KYC encontrou um problema. Por favor, entre em contato com o suporte usando o chat.");
       setWithContactSupport(true);
       return;
     }
@@ -59,8 +59,8 @@ export const KycRoute = () => {
       .then(({ data, error }) => {
         if (error) {
           console.error("Error fetching KYC integration:", error);
-          const errorMessage = extractErrorMessage(error, "Unknown error");
-          setError(`Error fetching KYC integration: ${errorMessage}`);
+          const errorMessage = extractErrorMessage(error, "Erro desconhecido");
+          setError(`Erro ao buscar integração KYC: ${errorMessage}`);
           return;
         }
 
@@ -68,7 +68,7 @@ export const KycRoute = () => {
       })
       .catch((err) => {
         console.error("Error fetching KYC integration url:", err);
-        setError("Error fetching KYC integration url");
+        setError("Erro ao buscar URL de integração KYC");
       });
   }, []);
 
@@ -87,7 +87,7 @@ export const KycRoute = () => {
         <div className="col-span-6 lg:col-start-2 lg:col-span-4 mx-4 lg:mx-0">
           <StandardAlert
             variant="destructive"
-            title="Error"
+            title="Erro"
             description={error}
             className="mt-4"
             data-testid="kyc-error-alert"
@@ -95,7 +95,7 @@ export const KycRoute = () => {
           {withContactSupport && (
             <div className="flex justify-center mt-4">
               <Button onClick={() => open()} data-testid="kyc-contact-support-button">
-                Contact support
+                Entrar em contato com o suporte
               </Button>
             </div>
           )}
@@ -107,7 +107,7 @@ export const KycRoute = () => {
             <iframe
               src={kycUrl}
               className="w-full h-[calc(100vh-73px)]"
-              title="KYC Integration"
+              title="Integração KYC"
               data-testid="kyc-iframe"
             />
           )}

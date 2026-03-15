@@ -127,7 +127,7 @@ export const SendFundsConfirm = ({ selectedToken, amount, toAddress, onBack, onS
     <div className="space-y-6">
       <div className="space-y-4">
         <div className="bg-muted/50 p-4 rounded-lg">
-          <Label className="text-muted-foreground text-sm">You're sending</Label>
+          <Label className="text-muted-foreground text-sm">Você está enviando</Label>
           <div className="flex items-center gap-2 mt-1">
             {selectedToken.logo && <img src={selectedToken.logo} className="h-6 w-6 rounded-full" alt="Token" />}
             <div className="text-xl font-semibold" data-testid="confirm-amount">
@@ -141,7 +141,7 @@ export const SendFundsConfirm = ({ selectedToken, amount, toAddress, onBack, onS
 
         <div className="bg-muted/50 p-4 rounded-lg">
           <Label className="text-muted-foreground text-sm" data-testid="confirm-to-label">
-            To
+            Para
           </Label>
           <div className="mt-1 font-mono text-sm break-all" data-testid="confirm-to-address">
             {toAddress}
@@ -151,13 +151,13 @@ export const SendFundsConfirm = ({ selectedToken, amount, toAddress, onBack, onS
 
       <StandardAlert
         variant="info"
-        description="As a security measure, your card will be temporarily frozen for 3 minutes."
+        description="Como medida de segurança, seu cartão ficará temporariamente congelado por 3 minutos."
         customIcon={<Clock className="h-4 w-4" />}
       />
 
       <div className="flex gap-3">
         <Button variant="outline" onClick={onBack} disabled={isLoading}>
-          Back
+          Voltar
         </Button>
 
         <Button
@@ -167,7 +167,7 @@ export const SendFundsConfirm = ({ selectedToken, amount, toAddress, onBack, onS
           className="flex-1"
           data-testid="send-funds-confirm-button"
         >
-          {isLoading ? "Executing..." : "Confirm and execute"}
+          {isLoading ? "Executando..." : "Confirmar e executar"}
         </Button>
       </div>
     </div>

@@ -40,8 +40,8 @@ export const TransactionRow = ({ transaction, index = 0 }: TransactionRowProps) 
     ].includes(transaction.status);
 
   const Icon = getIconForMcc(mcc);
-  const merchantName = merchant?.name || "Unknown";
-  const time = createdAt ? format(parseISO(createdAt), "HH:mm") : "unknown";
+  const merchantName = merchant?.name || "Desconhecido";
+  const time = createdAt ? format(parseISO(createdAt), "HH:mm") : "desconhecido";
   const billAmount = formatCurrency(billingAmount, {
     decimals: billingCurrency?.decimals,
     fiatSymbol: billingCurrency?.symbol,
@@ -71,19 +71,19 @@ export const TransactionRow = ({ transaction, index = 0 }: TransactionRowProps) 
               {time}
               {isRefund && (
                 <span className="inline-flex items-center ml-1" data-testid="transaction-status-refund">
-                  {"• Refund"}
+                  {"• Reembolso"}
                   <StatusHelpIcon type="refund" />
                 </span>
               )}
               {isReversal && (
                 <span className="inline-flex items-center ml-1" data-testid="transaction-status-reversal">
-                  {"• Reversal"}
+                  {"• Reversão"}
                   <StatusHelpIcon type="reversal" />
                 </span>
               )}
               {isPending && (
                 <span className="inline-flex items-center ml-1" data-testid="transaction-status-pending">
-                  {"• Pending"}
+                  {"• Pendente"}
                   <StatusHelpIcon type="pending" />
                 </span>
               )}

@@ -35,7 +35,7 @@ export const TransactionDetailsView = ({ transaction, onStartDispute }: Transact
 
     const { mcc, merchant, country, createdAt } = transaction;
     const Icon = getIconForMcc(mcc);
-    const merchantName = merchant?.name || "Unknown";
+    const merchantName = merchant?.name || "Desconhecido";
     const category = getMccCategory({ mcc: mcc || "" });
     const countryFlag = getCountryFlag(country?.alpha2);
     const txHash = transaction?.transactions?.[0]?.hash;
@@ -61,7 +61,7 @@ export const TransactionDetailsView = ({ transaction, onStartDispute }: Transact
         fiatSymbol: currency?.symbol,
       });
 
-      const statusText = isRefund ? "Refund" : "Reversal";
+      const statusText = isRefund ? "Reembolso" : "Reversão";
       const statusWithDate = createdAt ? `${statusText} • ${format(parseISO(createdAt), "MMM dd")}` : statusText;
 
       return {
@@ -95,7 +95,7 @@ export const TransactionDetailsView = ({ transaction, onStartDispute }: Transact
       billAmount,
       txAmount,
       exchangeRate,
-      status: isPending ? "Pending" : isApproved ? "Completed" : otherTxStatus,
+      status: isPending ? "Pendente" : isApproved ? "Concluída" : otherTxStatus,
       transactionCurrency,
     };
   }, [transaction, isApproved, isRefund, isReversal, isPending, otherTxStatus]);
@@ -133,7 +133,7 @@ export const TransactionDetailsView = ({ transaction, onStartDispute }: Transact
                   {merchantName}
                 </div>
                 <div className="text-xs text-muted-foreground" data-testid="modal-transaction-date">
-                  {format(parseISO(transaction.createdAt || ""), "MMM dd, yyyy 'at' HH:mm")}
+                  {format(parseISO(transaction.createdAt || ""), "dd/MM/yyyy 'às' HH:mm")}
                 </div>
               </div>
             </div>
@@ -178,7 +178,7 @@ export const TransactionDetailsView = ({ transaction, onStartDispute }: Transact
 
         {cardInfo && (
           <div className="flex justify-between items-center py-3">
-            <span className="text-muted-foreground">{cardInfo.virtual ? "Virtual" : "Physical"} Card</span>
+            <span className="text-muted-foreground">{cardInfo.virtual ? "Cartão virtual" : "Cartão físico"}</span>
             <span className="font-medium text-foreground" data-testid="modal-card-info">
               ••• {cardInfo.lastFourDigits}
             </span>
@@ -188,7 +188,7 @@ export const TransactionDetailsView = ({ transaction, onStartDispute }: Transact
         {/* Transaction Currency */}
         {transactionDetails?.transactionCurrency?.symbol && (
           <div className="flex justify-between items-center py-3">
-            <span className="text-muted-foreground">Transaction currency</span>
+            <span className="text-muted-foreground">Moeda da transação</span>
             <span className="font-medium text-foreground">{transactionDetails.transactionCurrency.symbol}</span>
           </div>
         )}
@@ -196,7 +196,7 @@ export const TransactionDetailsView = ({ transaction, onStartDispute }: Transact
         {/* Exchange Rate */}
         {exchangeRate && (
           <div className="flex justify-between items-center py-3">
-            <span className="text-muted-foreground">Exchange rate</span>
+            <span className="text-muted-foreground">Taxa de câmbio</span>
             <span className="font-medium text-foreground" data-testid="modal-exchange-rate">
               {exchangeRate}
             </span>
@@ -206,7 +206,7 @@ export const TransactionDetailsView = ({ transaction, onStartDispute }: Transact
         {/* Category */}
         {transactionDetails?.category && (
           <div className="flex justify-between items-center py-3">
-            <span className="text-muted-foreground">Category</span>
+            <span className="text-muted-foreground">Categoria</span>
             <span className="font-medium text-foreground" data-testid="modal-category">
               {category}
             </span>
@@ -216,7 +216,7 @@ export const TransactionDetailsView = ({ transaction, onStartDispute }: Transact
         {/* Country */}
         {country && (
           <div className="flex justify-between items-center py-3">
-            <span className="text-muted-foreground">Country</span>
+            <span className="text-muted-foreground">País</span>
             <div className="flex items-center gap-2" data-testid="modal-country">
               {countryFlag && <span className="text-lg">{countryFlag}</span>}
               <span className="font-medium text-foreground">{country}</span>
@@ -230,7 +230,7 @@ export const TransactionDetailsView = ({ transaction, onStartDispute }: Transact
             <span className="text-muted-foreground">TxHash</span>
             <div className="flex items-center gap-2" data-testid="modal-txhash">
               <span className="font-medium text-foreground">{shortenAddress(txHash)}</span>
-              <Button
+            <Button
                 variant="ghost"
                 size="sm"
                 className="h-8 w-8 p-0"
@@ -255,7 +255,7 @@ export const TransactionDetailsView = ({ transaction, onStartDispute }: Transact
             className="w-full"
             data-testid="dispute-transaction-button"
           >
-            Dispute Transaction
+            Contestar transação
           </Button>
         </div>
       )}

@@ -993,7 +993,36 @@ interface GetMccCategoryParams {
 }
 export const getMccCategory = ({ mcc }: GetMccCategoryParams) => {
   const mccEntry = mccCategories.find(({ id }) => id === mcc);
-  return mccEntry ? mccEntry.category : "";
+  const category = mccEntry ? mccEntry.category : "";
+  const CATEGORY_PT: Record<string, string> = {
+    Other: "Outros",
+    Airline: "Companhia aérea",
+    "Car Rental": "Aluguel de carros",
+    Health: "Saúde",
+    "Health Services": "Serviços de saúde",
+    School: "Educação",
+    Finance: "Finanças",
+    Grocery: "Mercado",
+    Restaurant: "Restaurante",
+    Fuel: "Combustível",
+    Entertainment: "Entretenimento",
+    Travel: "Viagem",
+    Transport: "Transporte",
+    Clothing: "Vestuário",
+    Utilities: "Serviços",
+    Electronics: "Eletrônicos",
+    Hotel: "Hotel",
+    Lodging: "Hospedagem",
+    Government: "Governo",
+    Telecom: "Telecomunicações",
+    Insurance: "Seguros",
+    Charity: "Caridade",
+    Education: "Educação",
+    Medical: "Médico",
+    Automotive: "Automotivo",
+    "Professional Services": "Serviços profissionais",
+  };
+  return CATEGORY_PT[category] ?? category;
 };
 
 const mccIcons = [

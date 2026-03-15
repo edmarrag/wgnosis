@@ -13,14 +13,14 @@ export const SignInWalletsSuccessAddition = ({ onBack }: SignInWalletsSuccessAdd
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-lg font-semibold text-foreground">Success</h3>
+        <h3 className="text-lg font-semibold text-foreground">Sucesso</h3>
         <p className="text-sm text-muted-foreground">
-          Your wallet address has been added successfully. You can now use it to sign in to your account.
+          Seu endereço de carteira foi adicionado com sucesso. Você já pode usá-lo para fazer login na sua conta.
         </p>
       </div>
 
       <Button className="w-full bg-button-bg hover:bg-button-bg-hover text-button-black font-medium" onClick={onBack}>
-        Back to wallets
+        Voltar para carteiras
       </Button>
     </div>
   );

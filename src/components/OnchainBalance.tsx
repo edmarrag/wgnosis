@@ -19,7 +19,7 @@ export const OnchainBalance = ({ currenciesWithBalance, isLoading, isError }: On
   }, [currenciesWithBalance]);
 
   if (isError) {
-    return <StandardAlert variant="destructive" description="Failed to fetch token balances. Please try again." />;
+    return <StandardAlert variant="destructive" description="Falha ao buscar saldos de tokens. Por favor, tente novamente." />;
   }
 
   return (
@@ -40,7 +40,7 @@ export const OnchainBalance = ({ currenciesWithBalance, isLoading, isError }: On
           ))}
         </div>
       ) : tokensWithNonZeroBalance.length === 0 ? (
-        <div className="text-center text-secondary py-4">No tokens available</div>
+        <div className="text-center text-secondary py-4">Nenhum token disponível</div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-2">
           {allTokens.map(([symbol, token]) => {
@@ -60,7 +60,7 @@ export const OnchainBalance = ({ currenciesWithBalance, isLoading, isError }: On
               >
                 <div className="flex items-center gap-2 min-w-0 flex-1 lg:flex-col lg:flex-1 lg:min-w-0 lg:gap-1">
                   {token.logo && (
-                    <img src={token.logo} alt={`${symbol} logo`} className="w-6 h-6 rounded-full shrink-0" />
+                    <img src={token.logo} alt={`Logo de ${symbol}`} className="w-6 h-6 rounded-full shrink-0" />
                   )}
                 </div>
                 <div className="text-right shrink-0 ml-2 lg:ml-0 lg:text-center lg:mt-1">

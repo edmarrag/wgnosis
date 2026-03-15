@@ -46,7 +46,7 @@ export const WithdrawFundsForm = ({ onSuccess }: WithdrawFundsFormProps = {}) =>
     setToAddress(value);
 
     if (value && !isAddress(value)) {
-      setAddressError("Invalid address");
+      setAddressError("Endereço inválido");
     }
   }, []);
 
@@ -96,12 +96,12 @@ export const WithdrawFundsForm = ({ onSuccess }: WithdrawFundsFormProps = {}) =>
 
     if (!isSignerConnected) {
       return signerError
-        ? `You are not an owner of this Safe. ${signerError.message}`
-        : "You are not an owner of this Safe. Please connect an owner account.";
+        ? `Você não é um proprietário deste Safe. ${signerError.message}`
+        : "Você não é um proprietário deste Safe. Conecte uma conta proprietária.";
     }
 
     if (!hasSufficientGasBalance) {
-      return "Your connected account has insufficient xDAI balance to pay for gas. Please ensure you have xDAI in your wallet.";
+      return "Sua conta conectada possui saldo xDAI insuficiente para pagar o gás. Certifique-se de ter xDAI na sua carteira.";
     }
 
     return null;
@@ -233,7 +233,7 @@ export const WithdrawFundsForm = ({ onSuccess }: WithdrawFundsFormProps = {}) =>
       });
 
       toast.success(
-        "Withdrawal transaction queued successfully! It will be ready to execute after the cooldown period.",
+        "Transação de retirada enfileirada com sucesso! Ela estará pronta para executar após o período de cooldown.",
       );
 
       // Reset form
@@ -245,8 +245,8 @@ export const WithdrawFundsForm = ({ onSuccess }: WithdrawFundsFormProps = {}) =>
       // Call onSuccess callback if provided
       onSuccess?.();
     } catch (error) {
-      console.error("Error withdrawing funds:", error);
-      toast.error(extractErrorMessage(error, "Error withdrawing funds"));
+      console.error("Erro ao retirar fundos:", error);
+      toast.error(extractErrorMessage(error, "Erro ao retirar fundos"));
     } finally {
       setIsLoading(false);
     }
@@ -263,21 +263,21 @@ export const WithdrawFundsForm = ({ onSuccess }: WithdrawFundsFormProps = {}) =>
 
   return (
     <div className="flex flex-col gap-4 bg-card p-4 rounded-lg" data-testid="withdraw-funds-form">
-      <h2 className="font-bold text-secondary text-lg">Withdraw Funds</h2>
+      <h2 className="font-bold text-secondary text-lg">Retirar fundos</h2>
 
       {!connectedAddress && (
-        <StandardAlert variant="destructive" description="You must connect your wallet to withdraw funds" />
+        <StandardAlert variant="destructive" description="Você deve conectar sua carteira para retirar fundos" />
       )}
 
       {connectedAddress && validationError && <StandardAlert variant="destructive" description={validationError} />}
 
       <StandardAlert
         variant="warning"
-        description="Please ensure you enter a Gnosis Chain address. You are solely responsible for the accuracy of the address and the safety of your funds."
+        description="Certifique-se de inserir um endereço da Gnosis Chain. Você é o único responsável pela precisão do endereço e pela segurança de seus fundos."
       />
 
       <div className="space-y-2">
-        <Label htmlFor="to-address">To</Label>
+        <Label htmlFor="to-address">Para</Label>
         <AddressInput
           toAddress={toAddress}
           onChange={handleAddressChange}
@@ -290,7 +290,7 @@ export const WithdrawFundsForm = ({ onSuccess }: WithdrawFundsFormProps = {}) =>
         <div className="flex items-center justify-end">
           <div className="flex items-center gap-2">
             <Label htmlFor="custom-token-switch" className="text-sm text-muted-foreground">
-              Custom token
+              Token personalizado
             </Label>
             <Switch id="custom-token-switch" checked={isCustomToken} onCheckedChange={handleCustomTokenChange} />
           </div>
@@ -312,7 +312,7 @@ export const WithdrawFundsForm = ({ onSuccess }: WithdrawFundsFormProps = {}) =>
       </div>
 
       <Button onClick={handleWithdraw} disabled={!isFormValid || isLoading} loading={isLoading} className="w-full">
-        Withdraw
+        Retirar
       </Button>
     </div>
   );

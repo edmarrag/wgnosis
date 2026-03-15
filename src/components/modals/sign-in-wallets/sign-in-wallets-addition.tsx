@@ -26,12 +26,12 @@ export const SignInWalletsAddition = ({ onCancel, onSuccess }: SignInWalletsEdit
     const trimmedAddress = address.trim();
 
     if (!trimmedAddress) {
-      setError("Please enter a wallet address");
+      setError("Insira um endereço de carteira");
       return;
     }
 
     if (!isAddress(trimmedAddress)) {
-      setError("Please enter a valid wallet address");
+      setError("Insira um endereço de carteira válido");
       return;
     }
 
@@ -45,16 +45,16 @@ export const SignInWalletsAddition = ({ onCancel, onSuccess }: SignInWalletsEdit
     })
       .then((response) => {
         if (response.error) {
-          setError(extractErrorMessage(response.error, "Failed to add wallet address"));
+          setError(extractErrorMessage(response.error, "Falha ao adicionar endereço de carteira"));
           return;
         }
 
-        toast.success("Wallet address added successfully");
+        toast.success("Endereço de carteira adicionado com sucesso");
         onSuccess();
       })
       .catch((err) => {
         console.error("Error adding EOA account:", err);
-        setError("Failed to add wallet address");
+        setError("Falha ao adicionar endereço de carteira");
       })
       .finally(() => {
         setIsSubmitting(false);
@@ -72,7 +72,7 @@ export const SignInWalletsAddition = ({ onCancel, onSuccess }: SignInWalletsEdit
     <div className="space-y-6">
       <div className="space-y-2">
         <label htmlFor="wallet-address" className="text-sm text-muted-foreground">
-          Wallet address
+          Endereço de carteira
         </label>
         <Input
           id="wallet-address"
@@ -83,15 +83,15 @@ export const SignInWalletsAddition = ({ onCancel, onSuccess }: SignInWalletsEdit
           className="font-mono"
         />
         <div className="text-xs text-muted-foreground">
-          Enter a valid wallet address that you want to use for signing in
+          Insira um endereço de carteira válido para usar no login
         </div>
       </div>
 
-      {error && <StandardAlert variant="destructive" title="Error" description={error} />}
+      {error && <StandardAlert variant="destructive" title="Erro" description={error} />}
 
       <div className="flex gap-3">
         <Button variant="outline" className="flex-1" onClick={onCancel} disabled={isSubmitting}>
-          Cancel
+          Cancelar
         </Button>
         <Button
           className="flex-1 bg-button-bg hover:bg-button-bg-hover text-button-black font-medium"
@@ -99,7 +99,7 @@ export const SignInWalletsAddition = ({ onCancel, onSuccess }: SignInWalletsEdit
           disabled={isSubmitting || !address.trim()}
           loading={isSubmitting}
         >
-          {isSubmitting ? "Adding..." : "Add wallet"}
+          {isSubmitting ? "Adicionando..." : "Adicionar carteira"}
         </Button>
       </div>
     </div>

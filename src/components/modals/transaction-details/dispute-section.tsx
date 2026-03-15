@@ -115,7 +115,7 @@ export const DisputeSection = ({ threadId, onBack, transactionDate }: DisputeSec
       {/* Header */}
       <div>
         {disputeStep !== DisputeStep.Success && (
-          <h2 className="text-lg font-semibold text-foreground">Dispute Transaction</h2>
+          <h2 className="text-lg font-semibold text-foreground">Contestar transação</h2>
         )}
       </div>
 
@@ -126,14 +126,14 @@ export const DisputeSection = ({ threadId, onBack, transactionDate }: DisputeSec
       {disputeStep === DisputeStep.SelectReason && (
         <div className="space-y-4">
           <div>
-            <p className="text-sm mb-4">Select the reason that best describes your issue with this transaction.</p>
+            <p className="text-sm mb-4">Selecione o motivo que melhor descreve seu problema com esta transação.</p>
 
             {isLoadingReasons ? (
               <Skeleton className="h-9 w-full" />
             ) : (
               <Select value={selectedReason} onValueChange={(value: DisputeReason) => setSelectedReason(value)}>
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select a reason..." />
+                  <SelectValue placeholder="Selecione um motivo..." />
                 </SelectTrigger>
                 <SelectContent>
                   {Object.entries(disputeReasons).map(([key, value]) => (
@@ -150,27 +150,27 @@ export const DisputeSection = ({ threadId, onBack, transactionDate }: DisputeSec
           {showCardRestrictionWarning && (
             <StandardAlert
               variant="warning"
-              description="Important: If you report this transaction as fraudulent, your card will be temporarily restricted until this issue is resolved to protect your account."
+              description="Importante: Se você reportar esta transação como fraudulenta, seu cartão ficará temporariamente restrito até que o problema seja resolvido para proteger sua conta."
             />
           )}
 
           {!canDispute && (
             <StandardAlert
               variant="destructive"
-              description="This transaction is less than 24 hours old. Please wait before disputing as refunds for reversed or failed transactions are automatically processed within one business day."
+              description="Esta transação tem menos de 24 horas. Aguarde antes de contestar, pois reembolsos para transações revertidas ou falhas são processados automaticamente dentro de um dia útil."
             />
           )}
 
           <div className="flex gap-3">
             <Button variant="outline" onClick={onBack} disabled={isSubmittingDispute}>
-              Back
+              Voltar
             </Button>
             <Button
               onClick={submitDispute}
               className="flex-1"
               disabled={!selectedReason || isSubmittingDispute || !canDispute}
             >
-              {isSubmittingDispute ? "Submitting..." : "Submit Dispute"}
+              {isSubmittingDispute ? "Enviando..." : "Enviar contestação"}
             </Button>
           </div>
         </div>
@@ -183,18 +183,17 @@ export const DisputeSection = ({ threadId, onBack, transactionDate }: DisputeSec
           </div>
 
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-foreground">Dispute Submitted Successfully</h3>
+            <h3 className="text-lg font-semibold text-foreground">Contestação enviada com sucesso</h3>
             <p className="text-sm text-muted-foreground">
-              Your dispute has been submitted and a support ticket has been created. Our team will review your case and
-              get back to you soon.
+              Sua contestação foi enviada e um ticket de suporte foi criado. Nossa equipe vai analisar seu caso e entrar em contato em breve.
             </p>
             <p className="text-sm text-muted-foreground">
-              You'll receive updates via email about the status of your dispute.
+              Você receberá atualizações por e-mail sobre o status da sua contestação.
             </p>
           </div>
 
           <Button variant="outline" onClick={onBack} className="w-full">
-            Back
+            Voltar
           </Button>
         </div>
       )}

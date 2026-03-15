@@ -13,12 +13,12 @@ export const DailyLimitSuccess: React.FC<DailyLimitSuccessProps> = ({ onClose })
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-lg font-semibold text-foreground">Success</h3>
-        <p className="text-sm text-muted-foreground">Your transaction is queued and will be executed in 3 minutes.</p>
+        <h3 className="text-lg font-semibold text-foreground">Sucesso</h3>
+        <p className="text-sm text-muted-foreground">Sua transação foi enfileirada e será executada em 3 minutos.</p>
       </div>
 
       <Button className="w-full bg-button-bg hover:bg-button-bg-hover text-button-black font-medium" onClick={onClose}>
-        Close
+        Fechar
       </Button>
     </div>
   );

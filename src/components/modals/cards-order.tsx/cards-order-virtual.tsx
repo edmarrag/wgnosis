@@ -22,19 +22,19 @@ export const CardsOrderVirtual = ({ onClose, onGoBack }: CardsOrderVirtualProps)
       .then(({ error }) => {
         if (error) {
           console.error("Error ordering card: ", error);
-          toast.error(<CollapsedError title="Error ordering card" error={error} />);
+          toast.error(<CollapsedError title="Erro ao pedir cartão" error={error} />);
           setIsLoading(false);
           return;
         }
 
-        toast.success("Virtual card ordered successfully");
+        toast.success("Cartão virtual solicitado com sucesso");
         refreshCards();
         setIsLoading(false);
         onClose();
       })
       .catch((error) => {
         console.error("Error ordering card: ", error);
-        toast.error(<CollapsedError title="Error ordering card" error={error} />);
+        toast.error(<CollapsedError title="Erro ao pedir cartão" error={error} />);
         setIsLoading(false);
       });
   }, [refreshCards, onClose]);
@@ -43,16 +43,16 @@ export const CardsOrderVirtual = ({ onClose, onGoBack }: CardsOrderVirtualProps)
     <div className="space-y-4" data-testid="virtual-card-order-step">
       <div className="space-y-2">
         <p className="text-sm text-muted-foreground">
-          The card will be available in your dashboard immediately for online purchases. You can also add it manually to
-          your mobile wallet for offline purchases.
+          O cartão ficará disponível imediatamente no seu painel para compras online. Você também pode adicioná-lo
+          manualmente à sua carteira móvel para compras presenciais.
         </p>
       </div>
       <DialogFooter className="justify-end">
         <Button variant="outline" onClick={onGoBack} data-testid="back-button">
-          Back
+          Voltar
         </Button>
         <Button disabled={isLoading} loading={isLoading} onClick={onCardOrder} data-testid="order-virtual-card-button">
-          Order Virtual Card
+          Solicitar cartão virtual
         </Button>
       </DialogFooter>
     </div>

@@ -7,12 +7,12 @@ export const UserProfileHeader = () => {
   const fullName = useUserFullName();
 
   const userInitials = useMemo(() => {
-    if (!user?.firstName || !user?.lastName) return "UN";
+    if (!user?.firstName || !user?.lastName) return "ND";
     return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase();
   }, [user]);
 
   const userDisplayName = useMemo(() => {
-    return fullName || "Unknown User";
+    return fullName || "Usuário desconhecido";
   }, [fullName]);
 
   return (

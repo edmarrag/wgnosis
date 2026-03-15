@@ -24,7 +24,7 @@ export function IbanIntegrationModal({ isOpen, onOpenChange }: IbanIntegrationMo
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="max-w-lg" data-testid="iban-integration-modal">
         <DialogHeader>
-          <DialogTitle>{showSuccessState ? "IBAN Created Successfully!" : "Create Your IBAN"}</DialogTitle>
+          <DialogTitle>{showSuccessState ? "IBAN criado com sucesso!" : "Crie seu IBAN"}</DialogTitle>
         </DialogHeader>
 
         <IbanIntegrationFlow onSuccess={handleSuccess} onCancel={handleClose} showCancelButton={true} />
@@ -35,7 +35,7 @@ export function IbanIntegrationModal({ isOpen, onOpenChange }: IbanIntegrationMo
               className="bg-button-bg hover:bg-button-bg-hover text-button-black font-medium"
               onClick={handleClose}
             >
-              Close
+              Fechar
             </Button>
           </div>
         )}

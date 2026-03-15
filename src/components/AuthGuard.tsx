@@ -1,17 +1,14 @@
 import { useAuth } from "@/context/AuthContext";
 import { useUser } from "@/context/UserContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useAppKit } from "@reown/appkit/react";
 import { useTheme } from "@/context/ThemeContext";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import darkOwl from "@/assets/Gnosis-owl-white.svg";
 import lightOwl from "@/assets/Gnosis-owl-black.svg";
 import { TROUBLE_LOGGING_IN_URL } from "@/constants";
 import { DebugButton } from "./DebugButton";
-import { useAccount } from "wagmi";
-import { useGnosisChainEnforcer } from "@/hooks/useGnosisChainEnforcer";
 
 interface AuthGuardProps {
   children: ReactNode;
@@ -73,19 +70,19 @@ export const AuthGuard = ({
 }: AuthGuardProps) => {
   const { isAuthenticating, isAuthenticated, renewToken } = useAuth();
   const { isDeactivated, isUserSignedUp, isKycApproved, isSafeConfigured, isOnboarded } = useUser();
-  const { open } = useAppKit();
   const navigate = useNavigate();
-  const { isConnected, isConnecting } = useAccount();
+  const location = useLocation();
 
-  useGnosisChainEnforcer();
+  const devSkipEnabled = String(import.meta.env.VITE_DEV_SKIP_WALLET_ON_HOME) === "true";
+  const isHomeRoute = location.pathname === "/";
+  const [bypass, setBypass] = useState(false);
 
-  const handleConnect = useCallback(() => {
-    try {
-      open();
-    } catch (error) {
-      console.error("Error opening AppKit modal:", error);
+  const handleBypass = useCallback(() => {
+    if (devSkipEnabled && isHomeRoute) {
+      setBypass(true);
+      return;
     }
-  }, [open]);
+  }, [devSkipEnabled, isHomeRoute]);
 
   const loginScreenConfig = useMemo((): AuthScreenProps => {
     const buttonText = isAuthenticating ? "Signing message..." : "Sign message";
@@ -111,16 +108,7 @@ export const AuthGuard = ({
     };
   }, [navigate]);
 
-  const connectionScreenConfig = useMemo((): AuthScreenProps => {
-    const buttonText = isConnecting ? "Connecting..." : "Connect wallet";
-
-    return {
-      title: "Connect your wallet",
-      description: "Please connect your wallet to continue.",
-      buttonText,
-      buttonProps: { onClick: handleConnect, disabled: isConnecting, loading: isConnecting },
-    };
-  }, [handleConnect, isConnecting]);
+  
 
   const signupScreenConfig = useMemo((): AuthScreenProps => {
     return {
@@ -156,14 +144,16 @@ export const AuthGuard = ({
     };
   }, [navigate]);
 
-  // this is purely related to the wallet
-  if (!isConnected) {
-    return <AuthScreen {...connectionScreenConfig} />;
+  if (!bypass) {
+    handleBypass();
   }
 
-  // the wallet is connected but the JWT is not set or expired
-  if (!isAuthenticated) {
+  if (!isAuthenticated && !bypass) {
     return <AuthScreen {...loginScreenConfig} />;
+  }
+
+  if (bypass) {
+    return <>{children}</>;
   }
 
   // the withdraw route should be accessible to all users,

@@ -51,7 +51,7 @@ export const FooterNavBar = () => {
           <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2">
             <Button variant="outline" size="icon" onClick={handleSupportClick}>
               <MessageCircle className={cn("h-[1.2rem] w-[1.2rem]", isAnimating && "animate-ping")} />
-              <span className="sr-only">Open support</span>
+              <span className="sr-only">Abrir suporte</span>
             </Button>
             <ModeToggle />
           </div>

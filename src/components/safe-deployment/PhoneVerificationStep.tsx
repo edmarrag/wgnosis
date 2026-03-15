@@ -38,15 +38,15 @@ const PhoneVerificationStep = ({ onComplete, setError, onCancel, title }: PhoneV
     try {
       const { error, data } = await postApiV1Verification({ body: { phoneNumber: phone } });
       if (error || !data?.ok) {
-        const message = extractErrorMessage(error, "Unknown error");
-        setError(`Error sending code: ${message}`);
+        const message = extractErrorMessage(error, "Erro desconhecido");
+        setError(`Erro ao enviar código: ${message}`);
         return false;
       }
       setStep(PhoneStep.OtpVerification);
       startResendTimer();
       return true;
     } catch (err) {
-      setError("Error sending code");
+      setError("Erro ao enviar código");
       console.error(err);
       return false;
     } finally {
@@ -66,13 +66,13 @@ const PhoneVerificationStep = ({ onComplete, setError, onCancel, title }: PhoneV
     try {
       const { error, data } = await postApiV1VerificationCheck({ body: { code: otp } });
       if (error || !data?.ok) {
-        const message = extractErrorMessage(error, "Unknown error");
-        setError(`Error verifying code: ${message}`);
+        const message = extractErrorMessage(error, "Erro desconhecido");
+        setError(`Erro ao verificar código: ${message}`);
         return;
       }
       onComplete();
     } catch (_err) {
-      setError("Error verifying code");
+      setError("Erro ao verificar código");
     } finally {
       setIsOtpLoading(false);
     }
@@ -91,24 +91,24 @@ const PhoneVerificationStep = ({ onComplete, setError, onCancel, title }: PhoneV
         <>
           <h2 className="text-lg font-semibold mb-4 mt-4">{title}</h2>
           <p className="text-muted-foreground mb-4">
-            A one time code will be sent to your phone. Please enter your phone number to continue.
+            Um código de uso único será enviado para o seu telefone. Informe seu número para continuar.
           </p>
           <form className="space-y-4 mt-4 w-xs" onSubmit={handlePhoneContinue} data-testid="phone-input-form">
             <PhoneInput value={phone} onChange={setPhone} disabled={isSubmitting} data-testid="phone-number-input" />
             {onCancel && (
               <Button className="mr-4" type="button" variant="outline" onClick={onCancel}>
-                Cancel
+                Cancelar
               </Button>
             )}
             <Button type="submit" disabled={!phone || isSubmitting} data-testid="phone-continue-button">
-              Continue
+              Continuar
             </Button>
           </form>
         </>
       )}
       {step === PhoneStep.VerifyPhoneNumber && (
         <form className="space-y-4 mt-4" onSubmit={handlePhoneSubmit} data-testid="phone-confirm-form">
-          <p className="text-muted-foreground mb-4">This number will be used to send you a one time code:</p>
+          <p className="text-muted-foreground mb-4">Este número será usado para enviar um código de uso único:</p>
           <div className="mb-4 font-mono text-lg" data-testid="phone-number-display">
             {phone}
           </div>
@@ -120,10 +120,10 @@ const PhoneVerificationStep = ({ onComplete, setError, onCancel, title }: PhoneV
               disabled={isSubmitting}
               data-testid="phone-edit-button"
             >
-              Edit
+              Editar
             </Button>
             <Button type="submit" loading={isSubmitting} disabled={isSubmitting} data-testid="phone-send-code-button">
-              Send code
+              Enviar código
             </Button>
           </div>
         </form>
@@ -131,7 +131,7 @@ const PhoneVerificationStep = ({ onComplete, setError, onCancel, title }: PhoneV
       {step === PhoneStep.OtpVerification && (
         <form className="space-y-4 mt-4" onSubmit={handleOtpSubmit} data-testid="otp-verification-form">
           <label htmlFor="otp" className="block mb-4 font-medium mt-4">
-            Enter the 6-digit code sent to your phone
+            Insira o código de 6 dígitos enviado para o seu telefone
           </label>
           <OtpInput
             value={otp}
@@ -146,7 +146,7 @@ const PhoneVerificationStep = ({ onComplete, setError, onCancel, title }: PhoneV
             disabled={isOtpLoading || otp.length !== 6}
             data-testid="otp-verify-button"
           >
-            Verify
+            Verificar
           </Button>
           <Button
             type="button"
@@ -155,7 +155,7 @@ const PhoneVerificationStep = ({ onComplete, setError, onCancel, title }: PhoneV
             disabled={isSubmitting || isOtpLoading || resendTimer > 0}
             data-testid="otp-resend-button"
           >
-            {resendTimer > 0 ? `Resend code (${resendTimer}s)` : "Resend code"}
+            {resendTimer > 0 ? `Reenviar código (${resendTimer}s)` : "Reenviar código"}
           </Button>
         </form>
       )}

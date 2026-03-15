@@ -31,14 +31,14 @@ export const SignUpRoute = () => {
     getApiV1Terms()
       .then(({ data, error }) => {
         if (error) {
-          toast.error("Error getting terms of service");
+          toast.error("Erro ao obter termos de serviço");
           console.error("Error getting terms", error);
           return;
         }
         setTerms(data?.terms || []);
       })
       .catch((error) => {
-        toast.error("Error getting terms of service");
+        toast.error("Erro ao obter termos de serviço");
         console.error("Error getting terms", error);
       });
   }, []);
@@ -58,8 +58,8 @@ export const SignUpRoute = () => {
       const { data, error: termsError } = await getApiV1UserTerms();
 
       if (termsError) {
-        const message = extractErrorMessage(termsError, "unknown");
-        setError(`Error getting terms: ${message}`);
+        const message = extractErrorMessage(termsError, "desconhecido");
+        setError(`Erro ao obter termos: ${message}`);
         console.error("Error getting terms", termsError);
         return;
       }
@@ -82,14 +82,14 @@ export const SignUpRoute = () => {
         });
 
         if (error) {
-          const message = extractErrorMessage(error, "unknown");
-          setError(`Error accepting terms (${term.type}): ${message}`);
+          const message = extractErrorMessage(error, "desconhecido");
+          setError(`Erro ao aceitar termos (${term.type}): ${message}`);
           console.error("Error accepting terms", error);
         }
       }
     } catch (termsErr) {
-      const message = extractErrorMessage(termsErr, "unknown");
-      setError(`Error while accepting user terms: ${message}`);
+      const message = extractErrorMessage(termsErr, "desconhecido");
+      setError(`Erro ao aceitar termos do usuário: ${message}`);
       console.error("Error accepting user terms", termsErr);
     }
   }, []);
@@ -106,13 +106,13 @@ export const SignUpRoute = () => {
         });
 
         if (error || !data) {
-          const message = extractErrorMessage(error, "unknown");
+          const message = extractErrorMessage(error, "desconhecido");
           if (message.includes("already registered")) {
             setError(
-              `This email is already associated with a Gnosis Pay account, make sure you are using the correct wallet account to connect.`,
+              `Este e-mail já está associado a uma conta Gnosis Pay. Verifique se está usando a conta de carteira correta para conectar.`,
             );
           } else {
-            setError(`Error returned while signing up: ${message}`);
+            setError(`Erro ao efetuar cadastro: ${message}`);
             console.error("Error returned while signing up", error);
           }
           return;
@@ -126,8 +126,8 @@ export const SignUpRoute = () => {
         await acceptAllUserTerms();
         navigate("/kyc");
       } catch (err) {
-        const message = extractErrorMessage(err, "unknown");
-        setError(`Error while signing up: ${message}`);
+        const message = extractErrorMessage(err, "desconhecido");
+        setError(`Erro ao efetuar cadastro: ${message}`);
         console.error("Error while signing up", err);
       } finally {
         setIsLoading(false);
@@ -140,13 +140,13 @@ export const SignUpRoute = () => {
     <div className="grid grid-cols-6 gap-4 h-full mt-4" data-testid="signup-page">
       <div className="col-span-6 lg:col-start-2 lg:col-span-4 mx-4 lg:mx-0">
         <form className="space-y-4 mt-8" onSubmit={handleSignup} data-testid="signup-form">
-          <Label htmlFor="register-email">Type your email</Label>
+          <Label htmlFor="register-email">Digite seu e-mail</Label>
           <div className="mt-4">
             <Input
               className="lg:w-1/2"
               id="register-email"
               type="email"
-              placeholder="you@example.com"
+              placeholder="voce@exemplo.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -167,7 +167,7 @@ export const SignUpRoute = () => {
               data-testid="signup-tos-checkbox"
             />
             <label htmlFor="accept-tos" className="text-sm leading-normal">
-              I have read and agree to the{" "}
+              Li e concordo com os{" "}
               {terms?.map(({ type, url, name }, idx, arr) => (
                 <Fragment key={type}>
                   <a href={url} target="_blank" rel="noopener noreferrer" className="underline">
@@ -185,10 +185,10 @@ export const SignUpRoute = () => {
             disabled={isLoading || !email || !isAcceptedTos}
             data-testid="signup-submit-button"
           >
-            Next
+            Avançar
           </Button>
           {error && (
-            <StandardAlert variant="destructive" title="Error" description={error} data-testid="signup-error-alert" />
+            <StandardAlert variant="destructive" title="Erro" description={error} data-testid="signup-error-alert" />
           )}
         </form>
       </div>

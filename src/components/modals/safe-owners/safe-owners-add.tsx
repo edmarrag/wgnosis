@@ -36,29 +36,29 @@ export const SafeOwnersAdd = ({ onCancel, onSuccess, currentOwners }: SafeOwners
 
   const handleSave = useCallback(async () => {
     if (currentOwners.includes(newOwnerAddress)) {
-      setError("Owner already exists");
+      setError("O proprietário já existe");
       return;
     }
 
     if (!safeConfig?.address) {
-      setError("Safe configuration not found");
+      setError("Configuração do Safe não encontrada");
       return;
     }
 
     if (isSmartWalletLoading) {
-      setError("Smart wallet loading");
+      setError("Carteira inteligente carregando");
       return;
     }
 
     const trimmedAddress = newOwnerAddress.trim();
 
     if (!trimmedAddress) {
-      setError("Please enter an owner address");
+      setError("Insira um endereço de proprietário");
       return;
     }
 
     if (!isAddress(trimmedAddress)) {
-      setError("Please enter a valid wallet address");
+      setError("Insira um endereço de carteira válido");
       return;
     }
 
@@ -74,12 +74,12 @@ export const SafeOwnersAdd = ({ onCancel, onSuccess, currentOwners }: SafeOwners
       });
 
       if (transactionError) {
-        setError(extractErrorMessage(transactionError, "Failed to create transaction"));
+        setError(extractErrorMessage(transactionError, "Falha ao criar transação"));
         return;
       }
 
       if (!transactionData?.data) {
-        setError("No transaction data received");
+        setError("Nenhum dado de transação recebido");
         return;
       }
 
@@ -93,7 +93,7 @@ export const SafeOwnersAdd = ({ onCancel, onSuccess, currentOwners }: SafeOwners
       });
 
       if (!signature) {
-        setError("Failed to sign transaction");
+        setError("Falha ao assinar a transação");
         return;
       }
 
@@ -108,7 +108,7 @@ export const SafeOwnersAdd = ({ onCancel, onSuccess, currentOwners }: SafeOwners
       });
 
       if (postError) {
-        setError(extractErrorMessage(postError, "Failed to add owner"));
+        setError(extractErrorMessage(postError, "Falha ao adicionar proprietário"));
         return;
       }
 
@@ -121,24 +121,24 @@ export const SafeOwnersAdd = ({ onCancel, onSuccess, currentOwners }: SafeOwners
         })
           .then((response) => {
             if (response.error) {
-              setError(extractErrorMessage(response.error, "Failed to add wallet address"));
+              setError(extractErrorMessage(response.error, "Falha ao adicionar endereço de carteira"));
               return;
             }
 
-            toast.success("Sign-in Wallet added successfully");
+            toast.success("Carteira de login adicionada com sucesso");
           })
           .catch((err) => {
             console.error("Error adding Sign In Wallet account:", err);
-            setError("Failed to add wallet address");
+            setError("Falha ao adicionar endereço de carteira");
           });
       }
 
-      toast.success("Owner addition queued successfully");
+      toast.success("Adição de proprietário enfileirada com sucesso");
       fetchDelayQueue();
       onSuccess();
     } catch (err) {
       console.error("Error adding owner:", err);
-      setError("Failed to add owner");
+      setError("Falha ao adicionar proprietário");
     } finally {
       setIsSubmitting(false);
     }
@@ -166,13 +166,13 @@ export const SafeOwnersAdd = ({ onCancel, onSuccess, currentOwners }: SafeOwners
       {!isSignerConnected && !isDataLoading && (
         <StandardAlert
           variant="destructive"
-          description="You must be connected with an account that is a signer of the Gnosis Pay account"
+          description="Você deve estar conectado com uma conta que seja assinante da conta Gnosis Pay"
         />
       )}
 
       <div className="space-y-2">
         <label htmlFor="owner-address" className="text-sm text-muted-foreground">
-          Owner address
+          Endereço do proprietário
         </label>
         <Input
           id="owner-address"
@@ -183,7 +183,7 @@ export const SafeOwnersAdd = ({ onCancel, onSuccess, currentOwners }: SafeOwners
           className="font-mono"
         />
         <div className="text-xs text-muted-foreground">
-          Enter a valid wallet address that will become a new owner of your Safe
+          Insira um endereço de carteira válido que se tornará um novo proprietário do seu Safe
         </div>
       </div>
 
@@ -195,22 +195,22 @@ export const SafeOwnersAdd = ({ onCancel, onSuccess, currentOwners }: SafeOwners
           disabled={isSubmitting}
         />
         <label htmlFor="add-signin-wallet" className="text-sm text-foreground leading-none cursor-pointer select-none">
-          Add this address as a sign-in wallet
+          Adicionar este endereço como carteira de login
         </label>
       </div>
 
       <StandardAlert
         variant="warning"
-        title="Security Warning"
-        description="The new owner will have full access to all funds and assets in this Safe. They will be able to sign transactions, manage the Safe, and control all digital assets. Only add trusted addresses as owners."
+        title="Aviso de segurança"
+        description="O novo proprietário terá acesso total a todos os fundos e ativos deste Safe. Ele poderá assinar transações, gerenciar o Safe e controlar todos os ativos digitais. Adicione apenas endereços confiáveis como proprietários."
       />
 
-      {error && <StandardAlert variant="destructive" title="Error" description={error} />}
+      {error && <StandardAlert variant="destructive" title="Erro" description={error} />}
       {signerError && <StandardAlert variant="destructive" description={signerError.message} />}
 
       <div className="flex gap-3">
         <Button variant="outline" className="flex-1" onClick={onCancel} disabled={isSubmitting}>
-          Cancel
+          Cancelar
         </Button>
         <Button
           className="flex-1 bg-button-bg hover:bg-button-bg-hover text-button-black font-medium"
@@ -218,7 +218,7 @@ export const SafeOwnersAdd = ({ onCancel, onSuccess, currentOwners }: SafeOwners
           disabled={isSubmitting || !newOwnerAddress.trim() || !isSignerConnected || !!signerError}
           loading={isSubmitting}
         >
-          {isSubmitting ? "Adding..." : "Add owner"}
+          {isSubmitting ? "Adicionando..." : "Adicionar proprietário"}
         </Button>
       </div>
     </div>

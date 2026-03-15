@@ -28,7 +28,7 @@ export const Rewards = () => {
         }
       })
       .catch((err) => {
-        setError(extractErrorMessage(err, "Error fetching rewards"));
+        setError(extractErrorMessage(err, "Erro ao buscar recompensas"));
       })
       .finally(() => {
         setIsLoading(false);
@@ -53,7 +53,7 @@ export const Rewards = () => {
     if (!rewardsData) return "0";
     // Floor to 2 decimal places: 0.616 becomes 0.61
     const flooredValue = Math.floor(rewardsData.gnoBalance * 100) / 100;
-    return flooredValue.toLocaleString("en-US", {
+    return flooredValue.toLocaleString("pt-BR", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
@@ -98,7 +98,7 @@ export const Rewards = () => {
           </div>
           <div className="flex justify-between items-center" data-testid="gno-balance-row">
             <span className="text-sm text-muted-foreground" data-testid="gno-balance-label">
-              GNO balance
+              Saldo de GNO
             </span>
             <span className="text-sm font-medium text-foreground" data-testid="gno-balance-amount">
               {formattedGnoBalance} GNO

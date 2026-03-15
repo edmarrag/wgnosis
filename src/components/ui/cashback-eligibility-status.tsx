@@ -17,7 +17,7 @@ export const CashbackEligibilityStatus = ({ transactionDetails }: CashbackEligib
       return {
         icon: <Gift className="w-4 h-4 text-button-black" />,
         iconBg: "bg-brand",
-        label: "Eligible",
+        label: "Elegível",
       };
     }
 
@@ -27,7 +27,7 @@ export const CashbackEligibilityStatus = ({ transactionDetails }: CashbackEligib
       return {
         icon: <X className="w-4 h-4 text-button-black" />,
         iconBg: "bg-icon-background",
-        label: "Not eligible",
+        label: "Não elegível",
       };
     }
 
@@ -35,7 +35,7 @@ export const CashbackEligibilityStatus = ({ transactionDetails }: CashbackEligib
     return {
       icon: <Clock className="w-4 h-4 text-button-black" />,
       iconBg: "bg-icon-background",
-      label: "Awaiting settlement",
+      label: "Aguardando liquidação",
     };
   }, [transactionDetails.impactsCashback, isRefund, isReversal]);
 

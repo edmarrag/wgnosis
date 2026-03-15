@@ -37,20 +37,20 @@ export const OnchainTransactions = () => {
   const loadMoreButtonText = useMemo(() => {
     if (isLoadingMoreOnchainTransactions && nextSearchFromDate) {
       const formattedDate = format(nextSearchFromDate, "MMM do, yyyy");
-      return `Loading from ${formattedDate}...`;
+      return `Carregando a partir de ${formattedDate}...`;
     }
 
     if (isLoadingMoreOnchainTransactions) {
-      return "Loading...";
+      return "Carregando...";
     }
 
-    return "Load More";
+    return "Carregar mais";
   }, [isLoadingMoreOnchainTransactions, nextSearchFromDate]);
 
   const checkedUntilText = useMemo(() => {
     if (!currentOldestDate) return null;
     const formattedDate = format(currentOldestDate, "MMM do, yyyy");
-    return `Loaded from ${formattedDate}`;
+    return `Carregado a partir de ${formattedDate}`;
   }, [currentOldestDate]);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export const OnchainTransactions = () => {
         <div className="flex flex-col items-center justify-center py-8">
           <InboxIcon className="w-10 h-10 mb-2 text-secondary" />
           <div className="text-center text-secondary">
-            No onchain transactions to display
+            Sem transações onchain para exibir
             {checkedUntilText && <div className="text-xs text-muted-foreground">{checkedUntilText}</div>}
           </div>
         </div>

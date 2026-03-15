@@ -18,7 +18,7 @@ export const DelayModuleQueue = () => {
   }, [skipExpired]);
 
   if (isError) {
-    return <StandardAlert variant="destructive" description="Failed to fetch delay module queue information." />;
+    return <StandardAlert variant="destructive" description="Falha ao buscar informações da fila do módulo de delay." />;
   }
 
   if (!queue || queue.length === 0) {
@@ -27,7 +27,7 @@ export const DelayModuleQueue = () => {
 
   return (
     <div className="flex flex-col gap-4 bg-card p-4 rounded-lg" data-testid="delay-module-queue">
-      <h2 className="font-bold text-secondary text-lg">Transaction Queue</h2>
+      <h2 className="font-bold text-secondary text-lg">Fila de transações</h2>
 
       <div className="space-y-3">
         {queue.map((transaction) => (
@@ -41,7 +41,7 @@ export const DelayModuleQueue = () => {
             disabled={isSkippingExpired}
             loading={isSkippingExpired}
           >
-            Skip Expired
+            Pular expiradas
           </Button>
         )}
       </div>

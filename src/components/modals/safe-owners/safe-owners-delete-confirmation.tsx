@@ -41,7 +41,7 @@ export const SafeOwnersDeleteConfirmation = ({
 
   const handleDelete = useCallback(async () => {
     if (!safeConfig?.address) {
-      setError("Safe configuration not found");
+      setError("Configuração do Safe não encontrada");
       return;
     }
 
@@ -61,12 +61,12 @@ export const SafeOwnersDeleteConfirmation = ({
       });
 
       if (transactionError) {
-        setError(extractErrorMessage(transactionError, "Failed to create transaction"));
+        setError(extractErrorMessage(transactionError, "Falha ao criar transação"));
         return;
       }
 
       if (!transactionData?.data) {
-        setError("No transaction data received");
+        setError("Nenhum dado de transação recebido");
         return;
       }
 
@@ -80,7 +80,7 @@ export const SafeOwnersDeleteConfirmation = ({
       });
 
       if (!signature) {
-        setError("Failed to sign transaction");
+        setError("Falha ao assinar a transação");
         return;
       }
 
@@ -95,7 +95,7 @@ export const SafeOwnersDeleteConfirmation = ({
       });
 
       if (deleteError) {
-        setError(extractErrorMessage(deleteError, "Failed to remove owner"));
+        setError(extractErrorMessage(deleteError, "Falha ao remover proprietário"));
         return;
       }
 
@@ -122,29 +122,29 @@ export const SafeOwnersDeleteConfirmation = ({
             })
               .then((response) => {
                 if (response.error) {
-                  setError(extractErrorMessage(response.error, "Failed to delete wallet address"));
+                  setError(extractErrorMessage(response.error, "Falha ao excluir endereço de carteira"));
                   return;
                 }
 
-                toast.success("Sign-in address deleted successfully");
+                toast.success("Endereço de login excluído com sucesso");
               })
               .catch((err) => {
                 console.error("Error deleting EOA account:", err);
-                setError("Failed to delete wallet address");
+                setError("Falha ao excluir endereço de carteira");
               });
           })
           .catch((error) => {
             console.error("Failed to fetch sign-in wallets:", error);
-            setError("Failed to load sign-in wallets");
+            setError("Falha ao carregar carteiras de login");
           });
       }
 
-      toast.success("Owner removal queued successfully");
+      toast.success("Remoção de proprietário enfileirada com sucesso");
       fetchDelayQueue();
       onSuccess();
     } catch (err) {
       console.error("Error removing owner:", err);
-      setError("Failed to remove owner");
+      setError("Falha ao remover proprietário");
     } finally {
       setIsDeleting(false);
     }
@@ -164,7 +164,7 @@ export const SafeOwnersDeleteConfirmation = ({
       {!isSignerConnected && !isDataLoading && (
         <StandardAlert
           variant="destructive"
-          description="You must be connected with an account that is a signer of the Gnosis Pay account"
+          description="Você deve estar conectado com uma conta que seja assinante da conta Gnosis Pay"
         />
       )}
 
@@ -174,15 +174,14 @@ export const SafeOwnersDeleteConfirmation = ({
         </div>
 
         <div className="space-y-2">
-          <h3 className="text-lg font-semibold text-foreground">Remove Safe owner</h3>
+          <h3 className="text-lg font-semibold text-foreground">Remover proprietário do Safe</h3>
           <p className="text-sm text-muted-foreground max-w-sm">
-            Are you sure you want to remove this owner from your Safe? This action cannot be undone and will be
-            processed in 3 minutes.
+            Tem certeza de que deseja remover este proprietário do seu Safe? Esta ação não pode ser desfeita e será processada em 3 minutos.
           </p>
         </div>
 
         <div className="w-full p-3 bg-muted/50 rounded-lg">
-          <div className="text-xs text-muted-foreground mb-1">Owner Address</div>
+          <div className="text-xs text-muted-foreground mb-1">Endereço do proprietário</div>
           <div className="font-mono text-sm text-foreground break-all">{ownerAddress}</div>
         </div>
       </div>
@@ -198,22 +197,22 @@ export const SafeOwnersDeleteConfirmation = ({
           htmlFor="remove-signin-access"
           className="text-sm text-foreground leading-none cursor-pointer select-none"
         >
-          Remove this address from being able to sign-in
+          Remover este endereço da possibilidade de login
         </label>
       </div>
 
       <StandardAlert
         variant="warning"
-        title="Important"
-        description="Removing this owner will revoke their access to sign transactions and manage the Safe. Make sure this is intended before proceeding."
+        title="Importante"
+        description="Remover este proprietário revogará seu acesso para assinar transações e gerenciar o Safe. Tenha certeza antes de prosseguir."
       />
 
-      {error && <StandardAlert variant="destructive" title="Error" description={error} />}
+      {error && <StandardAlert variant="destructive" title="Erro" description={error} />}
       {signerError && <StandardAlert variant="destructive" description={signerError.message} />}
 
       <div className="flex gap-3">
         <Button variant="outline" className="flex-1" onClick={onCancel} disabled={isDeleting}>
-          Cancel
+          Cancelar
         </Button>
         <Button
           variant="destructive"
@@ -222,7 +221,7 @@ export const SafeOwnersDeleteConfirmation = ({
           disabled={isDeleting || !isSignerConnected || !!signerError}
           loading={isDeleting}
         >
-          {isDeleting ? "Removing..." : "Remove owner"}
+          {isDeleting ? "Removendo..." : "Remover proprietário"}
         </Button>
       </div>
     </div>

@@ -61,7 +61,7 @@ export const CardActions = ({
   const onShowCardDetails = useCallback(
     (cardToken?: string) => {
       if (!cardToken) {
-        toast.error("No card token");
+        toast.error("Card token ausente");
         return;
       }
 
@@ -70,7 +70,7 @@ export const CardActions = ({
         setIsCardDetailsModalOpen(true);
       } catch (error) {
         console.error(error);
-        toast.error("Error showing card details");
+        toast.error("Erro ao exibir detalhes do cartão");
       }
     },
     [showCardDetails],
@@ -79,7 +79,7 @@ export const CardActions = ({
   const onShowPin = useCallback(
     (cardToken?: string) => {
       if (!cardToken) {
-        toast.error("No card token");
+        toast.error("Card token ausente");
         return;
       }
 
@@ -88,7 +88,7 @@ export const CardActions = ({
         setIsCardDetailsModalOpen(true);
       } catch (error) {
         console.error(error);
-        toast.error("Error showing PIN");
+        toast.error("Erro ao exibir PIN");
       }
     },
     [showPin],
@@ -110,7 +110,7 @@ export const CardActions = ({
         {!card.activatedAt && (
           <IconButton
             icon={<MailCheck size={22} />}
-            label="Activate"
+            label="Ativar"
             onClick={() => setIsActivationDialogOpen(true)}
             size="lg"
             data-testid="card-action-activate"
@@ -118,7 +118,7 @@ export const CardActions = ({
         )}
         <IconButton
           icon={<CreditCard size={22} />}
-          label="Show details"
+          label="Exibir detalhes"
           onClick={() => onShowCardDetails(card.cardToken)}
           size="lg"
           variant="default"
@@ -126,7 +126,7 @@ export const CardActions = ({
         />
         <IconButton
           icon={<Eye size={22} />}
-          label="See PIN"
+          label="Ver PIN"
           onClick={() => onShowPin(card.cardToken)}
           size="lg"
           variant="default"
@@ -136,7 +136,7 @@ export const CardActions = ({
         {cardInfo?.isFrozen ? (
           <IconButton
             icon={<Sun size={22} />}
-            label="Unfreeze"
+            label="Descongelar"
             onClick={() => unfreezeCard(card.id)}
             size="lg"
             variant="default"
@@ -145,7 +145,7 @@ export const CardActions = ({
         ) : (
           <IconButton
             icon={<Snowflake size={22} />}
-            label="Freeze"
+            label="Congelar"
             onClick={() => freezeCard(card.id)}
             size="lg"
             variant="default"
@@ -158,7 +158,7 @@ export const CardActions = ({
             <span>
               <IconButton
                 icon={<MoreHorizontal size={22} />}
-                label="More"
+                label="Mais"
                 size="lg"
                 variant="default"
                 data-testid="card-action-more"
@@ -171,13 +171,13 @@ export const CardActions = ({
                 onClick={() => setIsVoidVirtualCardDialogOpen(true)}
                 data-testid="card-action-void-card"
               >
-                <BanIcon size={22} /> Void card
+                <BanIcon size={22} /> Anular cartão
               </DropdownMenuItem>
             )}
 
             {canReport && (
               <DropdownMenuItem onClick={() => setIsReportModalOpen(true)} data-testid="card-action-report">
-                <AlertOctagon size={22} /> Report
+                <AlertOctagon size={22} /> Reportar
               </DropdownMenuItem>
             )}
 
@@ -191,7 +191,7 @@ export const CardActions = ({
             >
               <div className="flex items-center gap-2">
                 <EyeOff size={22} />
-                Hide voided cards
+                Ocultar cartões anulados
               </div>
               <Switch
                 checked={isHideVoidedCards}
@@ -205,7 +205,7 @@ export const CardActions = ({
 
       <Dialog open={isCardDetailsModalOpen} onOpenChange={setIsCardDetailsModalOpen}>
         <PSEDialogContent>
-          <PSEDialogTitle>Card Details</PSEDialogTitle>
+          <PSEDialogTitle>Detalhes do cartão</PSEDialogTitle>
           <div className="grid flex-1 gap-2">
             <div id={PSE_IFRAME_ID} />
           </div>
@@ -227,19 +227,19 @@ export const CardActions = ({
       <ConfirmationDialog
         open={isActivationDialogOpen}
         onOpenChange={setIsActivationDialogOpen}
-        title="Activate Card"
+        title="Ativar cartão"
         iconColor="text-warning"
-        message="Only activate your card if you have physically received it."
-        confirmText="Activate Card"
+        message="Ative seu cartão somente se você já o recebeu fisicamente."
+        confirmText="Ativar cartão"
         onConfirm={onConfirmActivation}
       />
       <ConfirmationDialog
         open={isVoidVirtualCardDialogOpen}
         onOpenChange={setIsVoidVirtualCardDialogOpen}
-        title="Void Card"
+        title="Anular cartão"
         iconColor="text-warning"
-        message="Are you sure you want to void this card? This action cannot be undone."
-        confirmText="Void Card"
+        message="Tem certeza de que deseja anular este cartão? Esta ação não pode ser desfeita."
+        confirmText="Anular cartão"
         onConfirm={onVoidVirtualCard}
       />
     </>

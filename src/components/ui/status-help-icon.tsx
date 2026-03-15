@@ -10,15 +10,15 @@ export const StatusHelpIcon = ({ type }: StatusHelpIconProps) => {
   const getHelpText = useCallback(() => {
     switch (type) {
       case "pending":
-        return "This transaction is awaiting settlement.";
+        return "Esta transação está aguardando liquidação.";
       case "refund":
-        return "This payment has been partially refunded. The refund will be transferred within 10 working days from the payment date.";
+        return "Este pagamento foi parcialmente reembolsado. O reembolso será transferido em até 10 dias úteis a partir da data do pagamento.";
       case "pending-merchant":
-        return "If not confirmed by the merchant, it will be reverted in 11 days";
+        return "Se não for confirmado pelo estabelecimento, será revertido em 11 dias.";
       case "reversal":
-        return "This payment is the reversal of a previous transaction.";
+        return "Este pagamento é a reversão de uma transação anterior.";
       case "rewards":
-        return <>Learn more about the <a href="https://help.gnosispay.com/hc/en-us/articles/39631920738452-About-the-Gnosis-Pay-GNO-Cashback-Programmes" target="_blank" rel="noopener noreferrer" className="text-muted-foreground underline">Rewards program</a></>;
+        return <>Saiba mais sobre o <a href="https://help.gnosispay.com/hc/en-us/articles/39631920738452-About-the-Gnosis-Pay-GNO-Cashback-Programmes" target="_blank" rel="noopener noreferrer" className="text-muted-foreground underline">programa de recompensas</a></>;
       default:
         return "";
     }
@@ -33,7 +33,7 @@ export const StatusHelpIcon = ({ type }: StatusHelpIconProps) => {
       <PopoverTrigger asChild>
         <span
           className="inline-flex items-center justify-center ml-1 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-          aria-label={`Help about ${type} status`}
+          aria-label={`Ajuda sobre o status ${type}`}
           role="button"
           tabIndex={0}
           onClick={handleClick}

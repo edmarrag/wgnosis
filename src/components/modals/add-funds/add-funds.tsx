@@ -14,9 +14,9 @@ interface AddFundsModalProps {
 }
 
 enum Step {
-  Select = "Add funds",
-  IBAN = "Bank transfer",
-  Crypto = "Top up with crypto",
+  Select = "Adicionar fundos",
+  IBAN = "Transferência bancária",
+  Crypto = "Adicionar com cripto",
 }
 
 export const AddFundsModal = ({ open, onOpenChange }: AddFundsModalProps) => {
@@ -41,16 +41,16 @@ export const AddFundsModal = ({ open, onOpenChange }: AddFundsModalProps) => {
     const baseOptions = [
       {
         icon: Download,
-        title: "Top up with crypto",
-        description: "Send crypto to your Gnosis Card account • ~5 mins",
+        title: "Adicionar com cripto",
+        description: "Envie cripto para sua conta Gnosis Card • ~5 min",
         onClick: () => {
           setStep(Step.Crypto);
         },
       },
       {
         icon: ArrowLeftRight,
-        title: "Swap tokens via Jumper",
-        description: `Exchange your crypto for ${currency?.tokenSymbol} • ~5 mins`,
+        title: "Trocar tokens via Jumper",
+        description: `Troque sua cripto por ${currency?.tokenSymbol} • ~5 min`,
         onClick: () => {
           if (!jumperUrl) return;
           window.open(jumperUrl, "_blank");
@@ -58,8 +58,8 @@ export const AddFundsModal = ({ open, onOpenChange }: AddFundsModalProps) => {
       },
       {
         icon: ArrowLeftRight,
-        title: "Swap tokens via deBridge",
-        description: `Exchange your crypto for ${currency?.tokenSymbol} • ~5 mins`,
+        title: "Trocar tokens via deBridge",
+        description: `Troque sua cripto por ${currency?.tokenSymbol} • ~5 min`,
         onClick: () => {
           if (!debridgeUrl) return;
           window.open(debridgeUrl, "_blank");
@@ -71,8 +71,8 @@ export const AddFundsModal = ({ open, onOpenChange }: AddFundsModalProps) => {
     if (user?.bankingDetails?.moneriumIban) {
       baseOptions.push({
         icon: Building2,
-        title: "Bank transfer",
-        description: "Send Euros from your bank account • Up to 1 day",
+        title: "Transferência bancária",
+        description: "Envie Euros da sua conta bancária • Até 1 dia",
         onClick: () => {
           setStep(Step.IBAN);
         },
@@ -114,14 +114,14 @@ export const AddFundsModal = ({ open, onOpenChange }: AddFundsModalProps) => {
               <div className="flex items-center gap-2 pt-2 text-sm text-muted-foreground">
                 <LifeBuoy className="h-4 w-4" />
                 <span>
-                  More info about bridging and swaping on our{" "}
+                  Mais informações sobre bridge e swap em nossa{" "}
                   <a
                     href="https://help.gnosispay.com/hc/en-us/articles/39563426086932-Funding-with-Cryptocurrency-Swapping-Bridging"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-muted-foreground underline"
                   >
-                    help center
+                    central de ajuda
                   </a>
                   .
                 </span>
