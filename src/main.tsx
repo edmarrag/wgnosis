@@ -22,7 +22,14 @@ import { IbanTransactionsContextProvider } from "./context/IbanTransactionsConte
 import { OrdersContextProvider } from "./context/OrdersContext.tsx";
 import { ZendeskProvider } from "react-use-zendesk";
 
-export const BASE_URL = import.meta.env.VITE_GNOSIS_PAY_API_BASE_URL || "https://api.gnosispay.com/";
+const inferBaseUrl = () => {
+  const fromEnv = import.meta.env.VITE_GNOSIS_PAY_API_BASE_URL as string | undefined;
+  if (fromEnv) return fromEnv;
+  const host = window.location.hostname;
+  if (host === "localhost" || host === "127.0.0.1") return "/";
+  return "https://api.gnosispay.com/";
+};
+export const BASE_URL = inferBaseUrl();
 export const zendeskKey = import.meta.env.VITE_ZENDESK_KEY;
 
 globalThis.Buffer = Buffer;
@@ -41,6 +48,68 @@ if (!zendeskKey) {
 client.setConfig({
   // set default base url for requests
   baseUrl: BASE_URL,
+});
+try {
+  const sameOrigin =
+    typeof window !== "undefined" &&
+    (BASE_URL === "/" ||
+      BASE_URL.startsWith(window.location.origin) ||
+      BASE_URL.startsWith(window.location.protocol + "//" + window.location.host));
+  if (sameOrigin) {
+    console.warn(
+      "BASE_URL aponta para a mesma origem do frontend. Em produção/development com API separada, defina VITE_GNOSIS_PAY_API_BASE_URL adequadamente."
+    );
+  }
+} catch {}
+const toHeaderObj = (h: Headers | Record<string, string>) => {
+  try {
+    if (h instanceof Headers) {
+      return Object.fromEntries(Array.from(h.entries()));
+    }
+    return h;
+  } catch {
+    return {};
+  }
+};
+client.interceptors.request.use((req, opts) => {
+  console.info("API request", {
+    url: req.url,
+    method: req.method,
+    baseUrl: opts.baseUrl,
+    headers: toHeaderObj(req.headers as Headers),
+  });
+  return req;
+});
+client.interceptors.response.use(async (res, req, opts) => {
+  const ct = res.headers.get("content-type");
+  const status = res.status;
+  let preview: string | undefined;
+  try {
+    if (ct && ct.includes("application/json")) {
+      const clone = res.clone();
+      const txt = await clone.text();
+      preview = txt.slice(0, 300);
+    }
+  } catch {}
+  console.info("API response", {
+    url: req.url,
+    status,
+    ok: res.ok,
+    contentType: ct,
+    preview,
+  });
+  return res;
+});
+client.interceptors.error.use((error, res, req, opts) => {
+  console.error("API error", {
+    url: req?.url,
+    method: req?.method,
+    baseUrl: opts?.baseUrl,
+    status: res?.status,
+    name: (error as any)?.name,
+    message: (error as any)?.message,
+  });
+  return error;
 });
 
 ReactDOM.createRoot(rootElement).render(

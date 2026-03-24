@@ -10,6 +10,7 @@ import { SiweMessage } from "siwe";
 import { toast } from "sonner";
 import { getAddress } from "viem";
 import { getExtensionAddress, signLoginMessage } from "@/lib/extSigner";
+import { getAppUrl } from "@/utils/env";
 
 export const LOCALSTORAGE_JWT_KEY = "gp-ui.jwt";
 
@@ -150,26 +151,32 @@ const AuthContextProvider = ({ children }: AuthContextProps) => {
       return;
     }
 
-    if (!jwtAddressKey) {
-      console.info("No jwtAddressKey");
-      return;
-    }
-
     renewalInProgressRef.current = true;
 
     try {
       setIsAuthenticating(true);
       let currentAddress = extAddress;
       if (!currentAddress) {
-        try {
-          currentAddress = await getExtensionAddress();
-          setExtAddress(currentAddress);
-        } catch (e) {
-          toast.error("Extensão não disponível ou carteira bloqueada");
+        const start = Date.now();
+        const maxWaitMs = 60000;
+        while (Date.now() - start < maxWaitMs) {
+          try {
+            currentAddress = await getExtensionAddress(1500);
+            if (currentAddress) {
+              setExtAddress(currentAddress);
+              break;
+            }
+          } catch (_) {
+            // extensão pode estar bloqueada: o background já tenta abrir o side panel
+          }
+          await new Promise((r) => setTimeout(r, 800));
+        }
+        if (!currentAddress) {
           setIsAuthenticating(false);
           return;
         }
       }
+      const storageKey = `${LOCALSTORAGE_JWT_KEY}.${currentAddress}`;
       const { data, error } = await getApiV1AuthNonce();
 
       if (error) {
@@ -197,11 +204,19 @@ const AuthContextProvider = ({ children }: AuthContextProps) => {
         return;
       }
 
+      const appOrigin = getAppUrl();
+      const appDomain = (() => {
+        try {
+          return new URL(appOrigin).host;
+        } catch {
+          return "app.gnosispay.com";
+        }
+      })();
       const message = new SiweMessage({
-        domain: "app.gnosispay.com",
+        domain: appDomain,
         address: checksummedAddress,
         statement: "Sign in with Ethereum to the app.",
-        uri: "https://app.gnosispay.com",
+        uri: appOrigin,
         version: "1",
         chainId: 100,
         nonce: data,
@@ -209,6 +224,7 @@ const AuthContextProvider = ({ children }: AuthContextProps) => {
       });
 
       const preparedMessage = message.prepareMessage();
+      // background irá abrir o Side Panel quando receber o pedido de assinatura
       let signature = "";
 
       try {
@@ -247,8 +263,13 @@ const AuthContextProvider = ({ children }: AuthContextProps) => {
           return;
         }
 
-        updateJwt(data.token);
-        return data.token;
+        try {
+          localStorage.setItem(storageKey, data.token);
+        } catch (_) {}
+        setJwt(data.token);
+        updateClient(data.token);
+        setIsAuthenticating(false);
+        return data.token as string;
       } catch (error) {
         console.error("Error validating message", error);
         toast.error(<CollapsedError title="Error validating message" error={error} />);
@@ -262,7 +283,7 @@ const AuthContextProvider = ({ children }: AuthContextProps) => {
     } finally {
       renewalInProgressRef.current = false;
     }
-  }, [extAddress, jwtAddressKey, updateJwt]);
+  }, [extAddress, updateClient]);
 
   // Set up automatic JWT renewal timeout, simpler approach than with an interceptor
   // see https://heyapi.dev/openapi-ts/clients/fetch#interceptors

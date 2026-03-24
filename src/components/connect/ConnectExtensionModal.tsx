@@ -20,7 +20,7 @@ export function ConnectExtensionModal({ open, onOpenChange }: ConnectExtensionMo
       if (token) {
         onOpenChange(false);
       } else {
-        setError("Não foi possível iniciar a conexão com a extensão.");
+        setError("Não foi possível iniciar a conexão. Verifique a extensão e a API.");
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
@@ -52,9 +52,7 @@ export function ConnectExtensionModal({ open, onOpenChange }: ConnectExtensionMo
             </div>
           </button>
           {error && <div className="text-sm text-destructive">{error}</div>}
-          <div className="text-xs text-muted-foreground">
-            Requisitos: extensão instalada, desbloqueada e ativada para este site.
-          </div>
+          <div className="text-xs text-muted-foreground">Requisitos: extensão instalada, desbloqueada e ativada para este site.</div>
           <div className="flex justify-end">
             <Button variant="outline" onClick={() => onOpenChange(false)} disabled={isAuthenticating}>
               Fechar

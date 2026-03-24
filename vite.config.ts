@@ -31,5 +31,12 @@ export default defineConfig({
       origin: "https://app.safe.global",
       allowedHeaders: ["Content-Type", "Authorization"],
     },
+    proxy: {
+      "/api": {
+        target: "http://localhost:3001",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
 });

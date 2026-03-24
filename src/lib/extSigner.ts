@@ -23,15 +23,15 @@ function waitForMessage<T>(type: string, timeout = 10000): Promise<T> {
   });
 }
 
-export async function getExtensionAddress(): Promise<string> {
-  window.postMessage({ type: 'CORVAX_GET_ADDRESS_REQUEST' }, window.origin);
-  const res = await waitForMessage<{ type: string; address: string; error?: string }>('CORVAX_GET_ADDRESS_RESPONSE');
+export async function getExtensionAddress(timeoutMs?: number): Promise<string> {
+  window.postMessage({ type: 'CORVAX_GET_ADDRESS_REQUEST' }, '*');
+  const res = await waitForMessage<{ type: string; address: string; error?: string }>('CORVAX_GET_ADDRESS_RESPONSE', timeoutMs ?? 10000);
   if (!res.address) throw new Error('Endereço não retornado pela extensão');
   return res.address;
 }
 
 export async function signLoginMessage(message: string): Promise<string> {
-  window.postMessage({ type: 'CORVAX_SIGN_REQUEST', payload: { type: 'login', message } }, window.origin);
+  window.postMessage({ type: 'CORVAX_SIGN_REQUEST', payload: { type: 'login', message } }, '*');
   const res = await waitForMessage<{ type: string; signature: string; error?: string }>('CORVAX_SIGN_RESPONSE');
   if (!res.signature) throw new Error('Assinatura não retornada pela extensão');
   return res.signature;
